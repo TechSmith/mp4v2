@@ -31,7 +31,6 @@ public:
     virtual bool write( const void* buffer, Size size, Size& nout, Size maxChunkSize ) = 0;
     virtual bool close() = 0;
 
-    virtual int64_t getSize() = 0;
 protected:
     FileProvider() { }
 };
@@ -164,9 +163,6 @@ public:
 
     bool write( const void* buffer, Size size, Size& nout, Size maxChunkSize = 0 );
 
-    int64_t getSize();
-
-
 private:
     std::string   _name;
     bool          _isOpen;
@@ -200,7 +196,6 @@ public:
     bool write( const void* buffer, Size size, Size& nout, Size maxChunkSize );
     bool close();
 
-    int64_t getSize();
 private:
     MP4FileProvider _call;
     void*           _handle;

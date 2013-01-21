@@ -63,8 +63,7 @@ File::open( std::string name_, Mode mode_ )
     if( _provider.open( _name, _mode ))
         return true;
 
-    _size = _provider.getSize();
-    //FileSystem::getFileSize( _name, _size );
+    FileSystem::getFileSize( _name, _size );
 
     _isOpen = true;
     return false;
@@ -130,13 +129,6 @@ File::close()
     return false;
 }
 
-int64_t File::getSize()
-{
-   int64_t retSize = 0;
-   FileSystem::getFileSize( _name, retSize );
-   return retSize;
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 
 CustomFileProvider::CustomFileProvider( const MP4FileProvider& provider )
@@ -148,7 +140,6 @@ CustomFileProvider::CustomFileProvider( const MP4FileProvider& provider )
 bool
 CustomFileProvider::open( std::string name, Mode mode )
 {
-   fprintf(stderr, "CustomFileProvider::open()\n");
     MP4FileMode fm;
     switch( mode ) {
         case MODE_READ:   fm = FILEMODE_READ;   break;
@@ -187,13 +178,6 @@ bool
 CustomFileProvider::close()
 {
     return _call.close( _handle );
-}
-
-int64_t CustomFileProvider::getSize()
-{
-   fprintf(stderr, "CustomFileProvider::getSize()\n");
-   assert( _call.size );
-   return _call.size( _handle );
 }
 
 ///////////////////////////////////////////////////////////////////////////////

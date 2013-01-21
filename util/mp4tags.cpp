@@ -539,6 +539,7 @@ extern "C" int
                         else {
                             fprintf( stderr, "Art file %s not found\n", tags[i] );
                         }
+                        break;
                     }
                     case OPT_ALBUM_ARTIST:
                         MP4TagsSetAlbumArtist( mdata, tags[i] );
