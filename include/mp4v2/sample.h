@@ -552,6 +552,14 @@ int8_t MP4GetSampleSync(
     MP4TrackId    trackId,
     MP4SampleId   sampleId );
 
+
+/* */
+MP4V2_EXPORT
+uint64_t MP4GetSampleFileOffset(
+    MP4FileHandle hFile,
+    MP4TrackId    trackId,
+    MP4SampleId   sampleId );
+
 /* @} ***********************************************************************/
 
 #endif /* MP4V2_SAMPLE_H */

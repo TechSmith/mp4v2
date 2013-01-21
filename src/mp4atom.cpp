@@ -979,6 +979,11 @@ MP4Atom::factory( MP4File &file, MP4Atom* parent, const char* type )
                 return new MP4TfhdAtom(file);
             if( ATOMID(type) == ATOMID("trun") )
                 return new MP4TrunAtom(file);
+
+            if( ATOMID(type) == ATOMID("tsc2") )
+                return new MP4Tsc2Atom(file);
+
+          
             if( ATOMID(type) == ATOMID("twos") )
                 return new MP4SoundAtom( file, type );
             break;

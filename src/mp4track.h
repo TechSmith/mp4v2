@@ -163,11 +163,12 @@ public:
     MP4Duration GetDurationPerChunk();
     void        SetDurationPerChunk( MP4Duration );
 
+    uint64_t    GetSampleFileOffset(MP4SampleId sampleId);
+
 protected:
     bool        InitEditListProperties();
 
     File*       GetSampleFile( MP4SampleId sampleId );
-    uint64_t    GetSampleFileOffset(MP4SampleId sampleId);
     uint32_t    GetSampleStscIndex(MP4SampleId sampleId);
     uint32_t    GetChunkStscIndex(MP4ChunkId chunkId);
     uint32_t    GetChunkSize(MP4ChunkId chunkId);

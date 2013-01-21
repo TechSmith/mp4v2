@@ -86,6 +86,57 @@ void MP4Mp4vAtom::Generate()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+MP4Tsc2Atom::MP4Tsc2Atom(MP4File &file)
+   : MP4Atom(file, "tsc2")
+{
+   AddReserved(*this, "reserved1", 6);
+   AddProperty(new MP4Integer16Property(*this, "dataReferenceIndex"));
+   AddReserved(*this, "reserved2", 16);
+   AddProperty(new MP4Integer16Property(*this, "width"));
+   AddProperty(new MP4Integer16Property(*this, "height"));
+   AddReserved(*this, "reserved3", 14);
+   
+   MP4StringProperty* pProp = new MP4StringProperty(*this, "compressorName");
+   pProp->SetFixedLength(32);
+   pProp->SetCountedFormat(true);
+//   pProp->SetValue("TSC2 Codec");
+   AddProperty(pProp);
+   AddReserved(*this, "reserved4", 4); /* 7 */
+   
+   ExpectChildAtom("colr", Optional, OnlyOne);
+   ExpectChildAtom("esds", Required, OnlyOne);
+   ExpectChildAtom("pasp", Optional, OnlyOne);
+}
+   
+void MP4Tsc2Atom::Generate()
+{
+   MP4Atom::Generate();
+   
+   ((MP4Integer16Property*)m_pProperties[1])->SetValue(1);
+   
+   // property reserved3 has non-zero fixed values
+   static uint8_t reserved3[14] = {
+      0x00, 0x48, 0x00, 0x00,
+      0x00, 0x48, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x01,
+   };
+   m_pProperties[5]->SetReadOnly(false);
+   ((MP4BytesProperty*)m_pProperties[5])->
+   SetValue(reserved3, sizeof(reserved3));
+   m_pProperties[5]->SetReadOnly(true);
+   
+   // property reserved4 has non-zero fixed values
+   static uint8_t reserved4[4] = {
+      0x00, 0x18, 0xFF, 0xFF,
+   };
+   m_pProperties[7]->SetReadOnly(false);
+   ((MP4BytesProperty*)m_pProperties[7])->
+   SetValue(reserved4, sizeof(reserved4));
+   m_pProperties[7]->SetReadOnly(true);
+}
+
+///////////////////////////////////////////////////////////////////////////////
 
 }
 } // namespace mp4v2::impl

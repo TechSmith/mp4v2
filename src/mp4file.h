@@ -149,6 +149,9 @@ public:
 
     /* track properties */
     MP4Atom *FindTrackAtom(MP4TrackId trackId, const char *name);
+
+    bool GetTrackAtomData(MP4TrackId trackId, const char *name, uint8_t ** outAtomData, uint64_t * outDataSize);
+
     uint64_t GetTrackIntegerProperty(
         MP4TrackId trackId, const char* name);
     float GetTrackFloatProperty(
@@ -177,6 +180,7 @@ public:
     /* sample operations */
 
     uint32_t GetSampleSize(MP4TrackId trackId, MP4SampleId sampleId);
+    uint64_t GetSampleFileOffset(MP4TrackId trackId, MP4SampleId sampleId);
 
     uint32_t GetTrackMaxSampleSize(MP4TrackId trackId);
 
@@ -304,6 +308,12 @@ public:
         uint16_t width,
         uint16_t height,
         uint8_t videoType);
+
+    MP4TrackId AddTSC2VideoTrack(
+        uint32_t timeScale,
+        MP4Duration sampleDuration,
+        uint16_t width,
+        uint16_t height);
 
     MP4TrackId AddEncVideoTrack( // ismacryp
         uint32_t timeScale,

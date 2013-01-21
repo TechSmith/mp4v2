@@ -15,10 +15,13 @@ public:
     bool write( const void* buffer, Size size, Size& nout, Size maxChunkSize );
     bool close();
 
+    int64_t getSize();
+
 private:
     bool         _seekg;
     bool         _seekp;
     std::fstream _fstream;
+    std::string  _name;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -56,6 +59,7 @@ StandardFileProvider::open( std::string name, Mode mode )
     }
 
     _fstream.open( name.c_str(), om );
+    _name = name;
     return _fstream.fail();
 }
 
@@ -94,6 +98,13 @@ StandardFileProvider::close()
 {
     _fstream.close();
     return _fstream.fail();
+}
+
+int64_t StandardFileProvider::getSize()
+{
+   int64_t retSize = 0;
+   FileSystem::getFileSize( _name, retSize );
+   return retSize;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -16,6 +16,16 @@ bool MP4HaveTrackAtom(
     MP4TrackId    trackId,
     const char*   atomname );
 
+
+MP4V2_EXPORT
+bool MP4GetTrackAtomData (
+   MP4FileHandle hFile, 
+   MP4TrackId trackId, 
+   const char *atomName, 
+   uint8_t ** outAtomData, 
+   uint64_t * outDataSize);
+
+
 /** Get the track type.
  *
  *  MP4GetTrackType gets the type of the track with the specified track id.

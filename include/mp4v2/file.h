@@ -40,6 +40,7 @@ typedef struct MP4FileProvider_s
     int   ( *read  )( void* handle, void* buffer, int64_t size, int64_t* nin, int64_t maxChunkSize );
     int   ( *write )( void* handle, const void* buffer, int64_t size, int64_t* nout, int64_t maxChunkSize );
     int   ( *close )( void* handle );
+    int64_t ( *size)( void* handle );
 } MP4FileProvider;
 
 /** Close an mp4 file.
