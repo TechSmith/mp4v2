@@ -148,7 +148,6 @@ CustomFileProvider::CustomFileProvider( const MP4FileProvider& provider )
 bool
 CustomFileProvider::open( std::string name, Mode mode )
 {
-   fprintf(stderr, "CustomFileProvider::open()\n");
     MP4FileMode fm;
     switch( mode ) {
         case MODE_READ:   fm = FILEMODE_READ;   break;
@@ -191,7 +190,6 @@ CustomFileProvider::close()
 
 int64_t CustomFileProvider::getSize()
 {
-   fprintf(stderr, "CustomFileProvider::getSize()\n");
    assert( _call.size );
    return _call.size( _handle );
 }
