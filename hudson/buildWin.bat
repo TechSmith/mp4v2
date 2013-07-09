@@ -15,11 +15,13 @@ SET MP4V2_SRCPATH=%TRUNK_PATH%\src
 SET MP4V2_BINPATH=%TRUNK_PATH%\bin\win
 SET MP4V2_LIBPATH=%TRUNK_PATH%\lib\win
 
+@ECHO ON
 @REM Update files from TFS, so that it thinks we have the latest code when we make our check-in later
 "%TF_PATH%" get "%TFS_PATH%"
 
 @REM Delete all the files in the TFS path so we can tell if a file was deleted in SVN
 del "%TFS_PATH%" /S /F /Q
+@ECHO OFF
 
 @REM Do the 32-bit builds.
 SET BITS=32
