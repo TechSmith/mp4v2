@@ -744,6 +744,85 @@ bool MP4TableProperty::FindContainedProperty(const char *name,
     return false;
 }
 
+struct FastRead32Attr
+{
+   typedef uint32_t              PropertyType;
+   typedef MP4Integer32Property  MP4PropertyType;
+   static uint32_t ReverseBytes( const uint32_t& x ) { return MP4V2_BYTESWAP_32( x ); }   
+};
+
+struct FastRead64Attr
+{
+   typedef uint64_t              PropertyType;
+   typedef MP4Integer64Property  MP4PropertyType;
+   static uint64_t ReverseBytes( const uint64_t& x ) { return MP4V2_BYTESWAP_64( x ); }   
+};
+
+template <class ATTR>
+bool FastReadAttr( MP4File& file, MP4PropertyArray& properties, int32_t numEntries )
+{
+   uint8_t buf[10000]; // use stack, since allocating on heap is slow
+   
+   uint32_t numProperties              = properties.Size();
+   uint32_t propertySize               = sizeof( ATTR::PropertyType );
+   uint32_t entrySize                  = propertySize * numProperties;
+   int32_t  numEntriesThatFitInBuffer  = sizeof(buf) / entrySize;
+   
+   ATTR::PropertyType* p = NULL;
+   for (int32_t i = 0; i < numEntries; i++) 
+   {    
+      if ( i % numEntriesThatFitInBuffer == 0 ) // refresh the buffer if necessary
+      {
+         int numEntriesLeft   = numEntries - i;
+         int numEntriesToRead = numEntriesLeft < numEntriesThatFitInBuffer ? numEntriesLeft : numEntriesThatFitInBuffer;
+         file.ReadBytes( buf, numEntriesToRead * entrySize ); 
+         p = (ATTR::PropertyType*) buf;
+      }
+      for (uint32_t j = 0; j < numProperties; j++, p++) 
+      {
+         ((ATTR::MP4PropertyType*) properties[j])->SetValue( ATTR::ReverseBytes( *p ), i );
+      }
+   }
+   return true;
+}
+
+bool MP4TableProperty::FastRead(MP4File& file)
+{   
+   uint32_t numProperties = m_pProperties.Size();
+   if ( numProperties <= 0 )
+      return false;
+   
+   MP4PropertyType  propType = m_pProperties[0]->GetType();
+
+   // make sure all property types match
+   for (uint32_t j = 0; j < numProperties; j++)
+      if ( m_pProperties[j]->GetType() != propType )
+         return false;
+
+   // make sure no properties are implicit
+   for (uint32_t j = 0; j < numProperties; j++)
+      if ( m_pProperties[j]->IsImplicit() )
+         return false;
+   
+   // make sure no properties are read-only
+   for (uint32_t j = 0; j < numProperties; j++)
+      if ( m_pProperties[j]->IsReadOnly() )
+         return false;
+
+   uint32_t numEntries = GetCount();
+   
+   if ( propType == Integer32Property )
+   {
+      return FastReadAttr<FastRead32Attr>( file, m_pProperties, numEntries );
+   }
+   else if ( propType == Integer64Property )
+   {      
+      return FastReadAttr<FastRead64Attr>( file, m_pProperties, numEntries );
+   }
+
+   return false;
+}
+
 void MP4TableProperty::Read(MP4File& file, uint32_t index)
 {
     ASSERT(index == 0);
@@ -751,7 +830,7 @@ void MP4TableProperty::Read(MP4File& file, uint32_t index)
     if (m_implicit) {
         return;
     }
-
+       
     uint32_t numProperties = m_pProperties.Size();
 
     if (numProperties == 0) {
@@ -765,9 +844,13 @@ void MP4TableProperty::Read(MP4File& file, uint32_t index)
     for (uint32_t j = 0; j < numProperties; j++) {
         m_pProperties[j]->SetCount(numEntries);
     }
-
-    for (uint32_t i = 0; i < numEntries; i++) {
-        ReadEntry(file, i);
+        
+    bool fastReadSucceeded = FastRead(file);    
+    if ( !fastReadSucceeded )
+    {
+        for (uint32_t i = 0; i < numEntries; i++) {
+            ReadEntry(file, i);
+        }
     }
 }
 

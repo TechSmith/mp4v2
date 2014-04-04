@@ -493,6 +493,7 @@ public:
         m_pCountProperty->SetValue(count);
     }
 
+    
     void Read(MP4File& file, uint32_t index = 0);
     void Write(MP4File& file, uint32_t index = 0);
     void Dump(uint8_t indent,
@@ -502,6 +503,8 @@ public:
                       MP4Property** ppProperty, uint32_t* pIndex = NULL);
 
 protected:
+    bool FastRead(MP4File& file);
+
     virtual void ReadEntry(MP4File& file, uint32_t index);
     virtual void WriteEntry(MP4File& file, uint32_t index);
 
