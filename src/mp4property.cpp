@@ -764,11 +764,11 @@ bool FastReadAttr( MP4File& file, MP4PropertyArray& properties, int32_t numEntri
    uint8_t buf[10000]; // use stack, since allocating on heap is slow
    
    uint32_t numProperties              = properties.Size();
-   uint32_t propertySize               = sizeof( ATTR::PropertyType );
+   uint32_t propertySize               = sizeof( typename ATTR::PropertyType );
    uint32_t entrySize                  = propertySize * numProperties;
    int32_t  numEntriesThatFitInBuffer  = sizeof(buf) / entrySize;
    
-   ATTR::PropertyType* p = NULL;
+   typename ATTR::PropertyType* p = NULL;
    for (int32_t i = 0; i < numEntries; i++) 
    {    
       if ( i % numEntriesThatFitInBuffer == 0 ) // refresh the buffer if necessary
@@ -776,11 +776,11 @@ bool FastReadAttr( MP4File& file, MP4PropertyArray& properties, int32_t numEntri
          int numEntriesLeft   = numEntries - i;
          int numEntriesToRead = numEntriesLeft < numEntriesThatFitInBuffer ? numEntriesLeft : numEntriesThatFitInBuffer;
          file.ReadBytes( buf, numEntriesToRead * entrySize ); 
-         p = (ATTR::PropertyType*) buf;
+         p = (typename ATTR::PropertyType*) buf;
       }
       for (uint32_t j = 0; j < numProperties; j++, p++) 
       {
-         ((ATTR::MP4PropertyType*) properties[j])->SetValue( ATTR::ReverseBytes( *p ), i );
+         ((typename ATTR::MP4PropertyType*) properties[j])->SetValue( ATTR::ReverseBytes( *p ), i );
       }
    }
    return true;
