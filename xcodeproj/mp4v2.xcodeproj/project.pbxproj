@@ -83,7 +83,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "INCLUDE_DIR_PATH=`pwd`/../include/mp4v2\nLIBRARY_DIR_PATH=`pwd`/../lib/mac/Release\n\nmkdir -p ${CONFIGURATION_BUILD_DIR}\ncd ${CONFIGURATION_BUILD_DIR}\n\nrm -rf mp4v2\nrm -rf libmp4v2.a\n\nln -fs ${INCLUDE_DIR_PATH} mp4v2\nln -fs ${LIBRARY_DIR_PATH}/libmp4v2.a libmp4v2.a\n\n";
+			shellScript = "INCLUDE_DIR_PATH=`pwd`/../include/mp4v2\nLIBRARY_DIR_PATH=`pwd`/../lib/mac/Release\n\nmkdir -p \"${CONFIGURATION_BUILD_DIR}\"\ncd \"${CONFIGURATION_BUILD_DIR}\"\n\nrm -rf mp4v2\nrm -rf libmp4v2.a\n\nln -fs \"${INCLUDE_DIR_PATH}\" mp4v2\nln -fs \"${LIBRARY_DIR_PATH}\"/libmp4v2.a libmp4v2.a\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
