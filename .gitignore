@@ -49,6 +49,18 @@ dlldata.c
 *.svclog
 *.scc
 
+# Visual Studio output directories
+Debug*/
+Release*/
+Win32/
+x64*/
+Lib/
+buildwin/
+
+# NuGet (Don't check in your packages! Use Package Restore!)
+packages/
+*.nupkg
+
 # Visual C++ cache files
 ipch/
 *.aps
@@ -86,3 +98,4 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 xcuserdata
+
