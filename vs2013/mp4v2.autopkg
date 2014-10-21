@@ -13,7 +13,7 @@ nuget
       requireLicenseAcceptance: false;
       summary: MP4v2 Library for use within TechSmith;
       releaseNotes: "Pre-built package for MP4v2 Library";
-      description: @"The MP4v2 library provides an API to create and modify mp4 files as defined by ISO-IEC:14496-1:2001 MPEG-4 Systems. Code is derived from mp4v2 (https://code.google.com/p/mp4v2/).
+      description: @"The MP4v2 library provides an API to create and modify mp4 files as defined by ISO-IEC:14496-1:2001 MPEG-4 Systems. Code is derived from mp4v2 (https://code.google.com/p/mp4v2/)."
       copyright: "";
       tags: { native, mp4v2, mp4, vs2013 };
    };
