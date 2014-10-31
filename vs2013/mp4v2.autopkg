@@ -27,35 +27,32 @@ nuget
 
       nestedInclude:  { #destination = ${d_include}mp4v2; ..\include\mp4v2\*.h };
       
-      pdb:            { #output { package = redist; };
-                        #destination = ${d_bin}; };
-      
       [x86,v120,debug]
       {
          lib:         { ${MP4V2_LIB}Win32\Debug\*.lib; }
-         bin:         { ${MP4V2_LIB}Win32\Debug\*.dll; }
-         pdb:         { ${MP4V2_LIB}Win32\Debug\*.pdb; }
+         bin:         { ${MP4V2_LIB}Win32\Debug\*.dll;
+                        ${MP4V2_LIB}Win32\Debug\*.pdb; }
       };
 
       [x86,v120,release]
       {
          lib:         { ${MP4V2_LIB}Win32\Release\*.lib; }
-         bin:         { ${MP4V2_LIB}Win32\Release\*.dll; }
-         pdb:         { ${MP4V2_LIB}Win32\Release\*.pdb; }
+         bin:         { ${MP4V2_LIB}Win32\Release\*.dll;
+                        ${MP4V2_LIB}Win32\Release\*.pdb; }
       };
 
       [x64,v120,debug]
       {
          lib:         { ${MP4V2_LIB}x64\Debug\*.lib; }
-         bin:         { ${MP4V2_LIB}x64\Debug\*.dll; }
-         pdb:         { ${MP4V2_LIB}x64\Debug\*.pdb; }
+         bin:         { ${MP4V2_LIB}x64\Debug\*.dll;
+                        ${MP4V2_LIB}x64\Debug\*.pdb; }
       };
 
       [x64,v120,release]
       {
          lib:         { ${MP4V2_LIB}x64\Release\*.lib; }
-         bin:         { ${MP4V2_LIB}x64\Release\*.dll; }
-         pdb:         { ${MP4V2_LIB}x64\Release\*.pdb; }
+         bin:         { ${MP4V2_LIB}x64\Release\*.dll;
+                        ${MP4V2_LIB}x64\Release\*.pdb; }
       };
    };
 
