@@ -1,0 +1,77 @@
+nuget
+{
+   nuspec
+   {
+      id = mp4v2;
+      version: 2.1.0.1;
+      title: MP4v2 Library;
+      authors: { TechSmith Corporation };
+      owners: { TechSmith Corporation };
+      licenseUrl: "http://www.mozilla.org/MPL/";
+      projectUrl: "https://github.com/TechSmith/mp4v2";
+      iconUrl: "http://www.techsmith.com/favicon.ico";
+      requireLicenseAcceptance: false;
+      summary: MP4v2 Library for use within TechSmith;
+      releaseNotes: "Pre-built package for MP4v2 Library";
+      description: @"The MP4v2 library provides an API to create and modify mp4 files as defined by ISO-IEC:14496-1:2001 MPEG-4 Systems. Code is derived from mp4v2 (https://code.google.com/p/mp4v2/).";
+      copyright: "";
+      tags: { native, mp4v2, mp4, vs2013 };
+   };
+
+   files
+   {
+      #defines
+      {
+         MP4V2_LIB = ..\buildwin\lib.vs2013\;
+      }
+
+      nestedInclude:  { #destination = ${d_include}mp4v2; ..\include\mp4v2\*.h };
+      
+      [x86,v120,debug]
+      {
+         lib:         { ${MP4V2_LIB}Win32\Debug\*.lib; }
+         bin:         { ${MP4V2_LIB}Win32\Debug\*.dll;
+                        ${MP4V2_LIB}Win32\Debug\*.pdb; }
+      };
+
+      [x86,v120,release]
+      {
+         lib:         { ${MP4V2_LIB}Win32\Release\*.lib; }
+         bin:         { ${MP4V2_LIB}Win32\Release\*.dll;
+                        ${MP4V2_LIB}Win32\Release\*.pdb; }
+      };
+
+      [x64,v120,debug]
+      {
+         lib:         { ${MP4V2_LIB}x64\Debug\*.lib; }
+         bin:         { ${MP4V2_LIB}x64\Debug\*.dll;
+                        ${MP4V2_LIB}x64\Debug\*.pdb; }
+      };
+
+      [x64,v120,release]
+      {
+         lib:         { ${MP4V2_LIB}x64\Release\*.lib; }
+         bin:         { ${MP4V2_LIB}x64\Release\*.dll;
+                        ${MP4V2_LIB}x64\Release\*.pdb; }
+      };
+   };
+
+   props
+   {
+      // Additional declarations to insert into consuming projects before most of the
+      // project settings. (These may be modified in visual studio by a developer
+      // consuming this package.)
+      // This node is typically not needed for most packages and may be omitted.
+   }
+
+   targets
+   {
+      // Additional declarations to insert into consuming projects after most of the
+      // project settings. (These may NOT be modified in visual studio by a developer
+      // consuming this package.)
+      // This node is often used to set defines that are required that must be set by
+      // the consuming project in order to correctly link to the libraries in this
+      // package.  Such defines may be set either globally or only set under specific
+      // conditions.
+    }
+}
