@@ -195,7 +195,7 @@ Utf8ToFilename::~Utf8ToFilename( )
 wchar_t *
 Utf8ToFilename::ConvertToUTF16 ( const string &utf8string )
 {
-    int         num_bytes;
+    size_t      num_bytes;
     size_t      num_chars;
     wchar_t     *retval;
 
@@ -408,7 +408,7 @@ Utf8ToFilename::ConvertToUTF16Buf ( const char      *utf8,
  * @return the length of the prefix of @p utf8string in
  * characters
  */
-int
+size_t
 Utf8ToFilename::GetPrefixLen ( const string &utf8string )
 {
     if (utf8string.find("\\\\?\\") == 0)
@@ -689,7 +689,7 @@ Utf8ToFilename::Utf8DecodeChar ( const UINT8    *utf8_char,
     UINT8       mask;
     const UINT8 *p;
     UINT32      ucs4;
-    int         valid_len;
+    size_t         valid_len;
 
     ASSERT(utf8_char);
     ASSERT(num_bytes > 0);
