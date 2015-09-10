@@ -11,13 +11,7 @@
 #   define _USE_32BIT_TIME_T
 #endif
 
-// set minimum win32 API requirement to Windows 2000 or higher
-#ifndef _WIN32_WINNT
-#   define _WIN32_WINNT 0x0500
-#endif 
-#ifndef WINVER
-#   define WINVER 0x0500
-#endif 
+#include "targetver.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 

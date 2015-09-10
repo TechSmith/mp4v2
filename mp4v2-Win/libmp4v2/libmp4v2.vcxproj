@@ -528,6 +528,7 @@
     <ClInclude Include="..\..\include\mp4v2\itmf_tags.h" />
     <ClInclude Include="..\..\include\mp4v2\mp4v2.h" />
     <ClInclude Include="..\..\include\mp4v2\platform.h" />
+    <ClInclude Include="..\..\libplatform\targetver.h" />
     <ClInclude Include="..\include\mp4v2\project.h" />
     <ClInclude Include="..\..\include\mp4v2\sample.h" />
     <ClInclude Include="..\..\include\mp4v2\streaming.h" />
