@@ -1,3 +1,10 @@
+configurations
+{
+   Toolset {
+      key : "PlatformToolset";
+      choices: { v140 };
+   };
+}
 nuget
 {
    nuspec
@@ -12,48 +19,24 @@ nuget
       iconUrl: "http://www.techsmith.com/favicon.ico";
       requireLicenseAcceptance: false;
       summary: MP4v2 Library for use within TechSmith;
-      releaseNotes: "Pre-built package for MP4v2 Library";
       description: @"The MP4v2 library provides an API to create and modify mp4 files as defined by ISO-IEC:14496-1:2001 MPEG-4 Systems. Code is derived from mp4v2 (https://code.google.com/p/mp4v2/).";
       copyright: "";
-      tags: { native, mp4v2, mp4, vs2013 };
+      tags: { native, mp4v2, mp4, vs2015 };
    };
 
    files
    {
-      #defines
-      {
-         MP4V2_LIB = ..\buildwin\lib.vs2013\;
-      }
-
       nestedInclude:  { #destination = ${d_include}mp4v2; ..\include\mp4v2\*.h };
       
-      [x86,v120,debug]
+      ("Win32,x64", "v140", "Debug,Release") =>
       {
-         lib:         { ${MP4V2_LIB}Win32\Debug\*.lib; }
-         bin:         { ${MP4V2_LIB}Win32\Debug\*.dll;
-                        ${MP4V2_LIB}Win32\Debug\*.pdb; }
-      };
-
-      [x86,v120,release]
-      {
-         lib:         { ${MP4V2_LIB}Win32\Release\*.lib; }
-         bin:         { ${MP4V2_LIB}Win32\Release\*.dll;
-                        ${MP4V2_LIB}Win32\Release\*.pdb; }
-      };
-
-      [x64,v120,debug]
-      {
-         lib:         { ${MP4V2_LIB}x64\Debug\*.lib; }
-         bin:         { ${MP4V2_LIB}x64\Debug\*.dll;
-                        ${MP4V2_LIB}x64\Debug\*.pdb; }
-      };
-
-      [x64,v120,release]
-      {
-         lib:         { ${MP4V2_LIB}x64\Release\*.lib; }
-         bin:         { ${MP4V2_LIB}x64\Release\*.dll;
-                        ${MP4V2_LIB}x64\Release\*.pdb; }
-      };
+         [${0},${1},${2}]
+         {
+            lib:         { lib\${0}\${2}\*.lib; }
+            bin:         { bin\${0}\${2}\*.dll;
+                           bin\${0}\${2}\*.pdb; }
+         };
+      }
    };
 
    props
