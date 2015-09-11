@@ -39,7 +39,7 @@ nuget
             bin:         { bin\${0}\${2}\*.dll;
                            bin\${0}\${2}\*.pdb; }
          };
-      }
+      };
    };
 
    props
