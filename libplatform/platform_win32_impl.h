@@ -28,7 +28,7 @@ class Utf8ToFilename
     static int          ConvertToUTF16Buf ( const char      *utf8,
                                             wchar_t         *utf16_buf,
                                             size_t          num_bytes );
-    static int          GetPrefixLen ( const string &utf8string );
+    static size_t       GetPrefixLen ( const string &utf8string );
 
     static int          IsAbsolute ( const string &utf8string );
 

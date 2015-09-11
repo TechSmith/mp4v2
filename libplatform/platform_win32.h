@@ -11,13 +11,7 @@
 #   define _USE_32BIT_TIME_T
 #endif
 
-// set minimum win32 API requirement to Windows 2000 or higher
-#ifndef _WIN32_WINNT
-#   define _WIN32_WINNT 0x0500
-#endif 
-#ifndef WINVER
-#   define WINVER 0x0500
-#endif 
+#include "targetver.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -57,19 +51,6 @@ namespace mp4v2 { namespace platform {
 #define PRIx16  "x"
 #define PRIx32  "x"
 #define PRIx64  "I64x"
-
-///////////////////////////////////////////////////////////////////////////////
-
-// some macros for constant expressions
-#define INT8_C(x)    x
-#define INT16_C(x)   x
-#define INT32_C(x)   x ## L
-#define INT64_C(x)   x ## LL
-
-#define UINT8_C(x)   x
-#define UINT16_C(x)  x
-#define UINT32_C(x)  x ## UL
-#define UINT64_C(x)  x ## ULL
 
 ///////////////////////////////////////////////////////////////////////////////
 

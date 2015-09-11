@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BDB97A37-90B8-4906-BCAB-663D983E33E3}</ProjectGuid>
+    <RootNamespace>libmp4v2</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;$(SolutionDir)\include;$(SolutionDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MP4V2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;$(SolutionDir)\include;$(SolutionDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MP4V2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SetChecksum>true</SetChecksum>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;$(SolutionDir)\include;$(SolutionDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MP4V2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX64</TargetMachine>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;$(SolutionDir)\include;$(SolutionDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MP4V2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SetChecksum>true</SetChecksum>
+      <TargetMachine>MachineX64</TargetMachine>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\mp4v2\chapter.h" />
+    <ClInclude Include="..\..\include\mp4v2\file.h" />
+    <ClInclude Include="..\..\include\mp4v2\file_prop.h" />
+    <ClInclude Include="..\..\include\mp4v2\general.h" />
+    <ClInclude Include="..\..\include\mp4v2\isma.h" />
+    <ClInclude Include="..\..\include\mp4v2\itmf_generic.h" />
+    <ClInclude Include="..\..\include\mp4v2\itmf_tags.h" />
+    <ClInclude Include="..\..\include\mp4v2\mp4v2.h" />
+    <ClInclude Include="..\..\include\mp4v2\platform.h" />
+    <ClInclude Include="..\..\libplatform\targetver.h" />
+    <ClInclude Include="..\include\mp4v2\project.h" />
+    <ClInclude Include="..\..\include\mp4v2\sample.h" />
+    <ClInclude Include="..\..\include\mp4v2\streaming.h" />
+    <ClInclude Include="..\..\include\mp4v2\track.h" />
+    <ClInclude Include="..\..\include\mp4v2\track_prop.h" />
+    <ClInclude Include="..\..\src\atoms.h" />
+    <ClInclude Include="..\..\src\descriptors.h" />
+    <ClInclude Include="..\..\src\enum.h" />
+    <ClInclude Include="..\..\src\exception.h" />
+    <ClInclude Include="..\..\src\impl.h" />
+    <ClInclude Include="..\..\src\log.h" />
+    <ClInclude Include="..\..\src\mp4array.h" />
+    <ClInclude Include="..\..\src\mp4atom.h" />
+    <ClInclude Include="..\..\src\mp4container.h" />
+    <ClInclude Include="..\..\src\mp4descriptor.h" />
+    <ClInclude Include="..\..\src\mp4file.h" />
+    <ClInclude Include="..\..\src\mp4property.h" />
+    <ClInclude Include="..\..\src\mp4track.h" />
+    <ClInclude Include="..\..\src\mp4util.h" />
+    <ClInclude Include="..\..\src\ocidescriptors.h" />
+    <ClInclude Include="..\..\src\odcommands.h" />
+    <ClInclude Include="..\..\src\qosqualifiers.h" />
+    <ClInclude Include="..\..\src\rtphint.h" />
+    <ClInclude Include="..\..\src\src.h" />
+    <ClInclude Include="..\..\src\text.h" />
+    <ClInclude Include="..\..\src\util.h" />
+    <ClInclude Include="..\..\src\bmff\bmff.h" />
+    <ClInclude Include="..\..\src\bmff\impl.h" />
+    <ClInclude Include="..\..\src\bmff\typebmff.h" />
+    <ClInclude Include="..\..\src\itmf\CoverArtBox.h" />
+    <ClInclude Include="..\..\src\itmf\generic.h" />
+    <ClInclude Include="..\..\src\itmf\impl.h" />
+    <ClInclude Include="..\..\src\itmf\itmf.h" />
+    <ClInclude Include="..\..\src\itmf\Tags.h" />
+    <ClInclude Include="..\..\src\itmf\type.h" />
+    <ClInclude Include="..\..\src\qtff\coding.h" />
+    <ClInclude Include="..\..\src\qtff\ColorParameterBox.h" />
+    <ClInclude Include="..\..\src\qtff\impl.h" />
+    <ClInclude Include="..\..\src\qtff\PictureAspectRatioBox.h" />
+    <ClInclude Include="..\..\src\qtff\qtff.h" />
+    <ClInclude Include="..\..\libplatform\endian.h" />
+    <ClInclude Include="..\..\libplatform\impl.h" />
+    <ClInclude Include="..\..\libplatform\platform.h" />
+    <ClInclude Include="..\..\libplatform\platform_base.h" />
+    <ClInclude Include="..\..\libplatform\platform_win32.h" />
+    <ClInclude Include="..\..\libplatform\platform_win32_impl.h" />
+    <ClInclude Include="..\..\libplatform\warning.h" />
+    <ClInclude Include="..\..\libplatform\io\File.h" />
+    <ClInclude Include="..\..\libplatform\io\FileSystem.h" />
+    <ClInclude Include="..\..\libplatform\number\random.h" />
+    <ClInclude Include="..\..\libplatform\process\process.h" />
+    <ClInclude Include="..\..\libplatform\prog\option.h" />
+    <ClInclude Include="..\..\libplatform\sys\error.h" />
+    <ClInclude Include="..\..\libplatform\time\time.h" />
+    <ClInclude Include="..\..\libutil\crc.h" />
+    <ClInclude Include="..\..\libutil\Database.h" />
+    <ClInclude Include="..\..\libutil\impl.h" />
+    <ClInclude Include="..\..\libutil\other.h" />
+    <ClInclude Include="..\..\libutil\Timecode.h" />
+    <ClInclude Include="..\..\libutil\TrackModifier.h" />
+    <ClInclude Include="..\..\libutil\util.h" />
+    <ClInclude Include="..\..\libutil\Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\3gp.cpp" />
+    <ClCompile Include="..\..\src\atom_ac3.cpp" />
+    <ClCompile Include="..\..\src\atom_amr.cpp" />
+    <ClCompile Include="..\..\src\atom_avc1.cpp" />
+    <ClCompile Include="..\..\src\atom_avcC.cpp" />
+    <ClCompile Include="..\..\src\atom_chpl.cpp" />
+    <ClCompile Include="..\..\src\atom_colr.cpp" />
+    <ClCompile Include="..\..\src\atom_d263.cpp" />
+    <ClCompile Include="..\..\src\atom_dac3.cpp" />
+    <ClCompile Include="..\..\src\atom_damr.cpp" />
+    <ClCompile Include="..\..\src\atom_dref.cpp" />
+    <ClCompile Include="..\..\src\atom_elst.cpp" />
+    <ClCompile Include="..\..\src\atom_enca.cpp" />
+    <ClCompile Include="..\..\src\atom_encv.cpp" />
+    <ClCompile Include="..\..\src\atom_free.cpp" />
+    <ClCompile Include="..\..\src\atom_ftab.cpp" />
+    <ClCompile Include="..\..\src\atom_ftyp.cpp" />
+    <ClCompile Include="..\..\src\atom_gmin.cpp" />
+    <ClCompile Include="..\..\src\atom_hdlr.cpp" />
+    <ClCompile Include="..\..\src\atom_hinf.cpp" />
+    <ClCompile Include="..\..\src\atom_hnti.cpp" />
+    <ClCompile Include="..\..\src\atom_href.cpp" />
+    <ClCompile Include="..\..\src\atom_mdat.cpp" />
+    <ClCompile Include="..\..\src\atom_mdhd.cpp" />
+    <ClCompile Include="..\..\src\atom_meta.cpp" />
+    <ClCompile Include="..\..\src\atom_mp4s.cpp" />
+    <ClCompile Include="..\..\src\atom_mp4v.cpp" />
+    <ClCompile Include="..\..\src\atom_mvhd.cpp" />
+    <ClCompile Include="..\..\src\atom_nmhd.cpp" />
+    <ClCompile Include="..\..\src\atom_ohdr.cpp" />
+    <ClCompile Include="..\..\src\atom_pasp.cpp" />
+    <ClCompile Include="..\..\src\atom_root.cpp" />
+    <ClCompile Include="..\..\src\atom_rtp.cpp" />
+    <ClCompile Include="..\..\src\atom_s263.cpp" />
+    <ClCompile Include="..\..\src\atom_sdp.cpp" />
+    <ClCompile Include="..\..\src\atom_sdtp.cpp" />
+    <ClCompile Include="..\..\src\atom_smi.cpp" />
+    <ClCompile Include="..\..\src\atom_sound.cpp" />
+    <ClCompile Include="..\..\src\atom_standard.cpp" />
+    <ClCompile Include="..\..\src\atom_stbl.cpp" />
+    <ClCompile Include="..\..\src\atom_stdp.cpp" />
+    <ClCompile Include="..\..\src\atom_stsc.cpp" />
+    <ClCompile Include="..\..\src\atom_stsd.cpp" />
+    <ClCompile Include="..\..\src\atom_stsz.cpp" />
+    <ClCompile Include="..\..\src\atom_stz2.cpp" />
+    <ClCompile Include="..\..\src\atom_text.cpp" />
+    <ClCompile Include="..\..\src\atom_tfhd.cpp" />
+    <ClCompile Include="..\..\src\atom_tkhd.cpp" />
+    <ClCompile Include="..\..\src\atom_treftype.cpp" />
+    <ClCompile Include="..\..\src\atom_trun.cpp" />
+    <ClCompile Include="..\..\src\atom_tx3g.cpp" />
+    <ClCompile Include="..\..\src\atom_udta.cpp" />
+    <ClCompile Include="..\..\src\atom_url.cpp" />
+    <ClCompile Include="..\..\src\atom_urn.cpp" />
+    <ClCompile Include="..\..\src\atom_uuid.cpp" />
+    <ClCompile Include="..\..\src\atom_video.cpp" />
+    <ClCompile Include="..\..\src\atom_vmhd.cpp" />
+    <ClCompile Include="..\..\src\cmeta.cpp" />
+    <ClCompile Include="..\..\src\descriptors.cpp" />
+    <ClCompile Include="..\..\src\exception.cpp" />
+    <ClCompile Include="..\..\src\isma.cpp" />
+    <ClCompile Include="..\..\src\log.cpp" />
+    <ClCompile Include="..\..\src\mp4.cpp" />
+    <ClCompile Include="..\..\src\mp4atom.cpp" />
+    <ClCompile Include="..\..\src\mp4container.cpp" />
+    <ClCompile Include="..\..\src\mp4descriptor.cpp" />
+    <ClCompile Include="..\..\src\mp4file.cpp" />
+    <ClCompile Include="..\..\src\mp4file_io.cpp" />
+    <ClCompile Include="..\..\src\mp4info.cpp" />
+    <ClCompile Include="..\..\src\mp4property.cpp" />
+    <ClCompile Include="..\..\src\mp4track.cpp" />
+    <ClCompile Include="..\..\src\mp4util.cpp" />
+    <ClCompile Include="..\..\src\ocidescriptors.cpp" />
+    <ClCompile Include="..\..\src\odcommands.cpp" />
+    <ClCompile Include="..\..\src\qosqualifiers.cpp" />
+    <ClCompile Include="..\..\src\rtphint.cpp" />
+    <ClCompile Include="..\..\src\text.cpp" />
+    <ClCompile Include="..\..\src\bmff\typebmff.cpp" />
+    <ClCompile Include="..\..\src\itmf\CoverArtBox.cpp" />
+    <ClCompile Include="..\..\src\itmf\generic.cpp" />
+    <ClCompile Include="..\..\src\itmf\Tags.cpp" />
+    <ClCompile Include="..\..\src\itmf\type.cpp" />
+    <ClCompile Include="..\..\src\qtff\coding.cpp" />
+    <ClCompile Include="..\..\src\qtff\ColorParameterBox.cpp" />
+    <ClCompile Include="..\..\src\qtff\PictureAspectRatioBox.cpp" />
+    <ClCompile Include="..\..\libplatform\platform_win32.cpp" />
+    <ClCompile Include="..\..\libplatform\io\File.cpp" />
+    <ClCompile Include="..\..\libplatform\io\File_win32.cpp" />
+    <ClCompile Include="..\..\libplatform\io\FileSystem.cpp" />
+    <ClCompile Include="..\..\libplatform\io\FileSystem_win32.cpp" />
+    <ClCompile Include="..\..\libplatform\number\random_win32.cpp" />
+    <ClCompile Include="..\..\libplatform\process\process_win32.cpp" />
+    <ClCompile Include="..\..\libplatform\prog\option.cpp" />
+    <ClCompile Include="..\..\libplatform\sys\error.cpp" />
+    <ClCompile Include="..\..\libplatform\time\time.cpp" />
+    <ClCompile Include="..\..\libplatform\time\time_win32.cpp" />
+    <ClCompile Include="..\..\libutil\crc.cpp" />
+    <ClCompile Include="..\..\libutil\Database.cpp" />
+    <ClCompile Include="..\..\libutil\other.cpp" />
+    <ClCompile Include="..\..\libutil\Timecode.cpp" />
+    <ClCompile Include="..\..\libutil\TrackModifier.cpp" />
+    <ClCompile Include="..\..\libutil\Utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\enum.tcc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Version.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
