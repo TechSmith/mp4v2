@@ -25,6 +25,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mp4track", "mp4track\mp4tra
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mp4subtitle", "mp4subtitle\mp4subtitle.vcxproj", "{B2B082CA-748D-48A2-9AF1-4BD4F54E5604}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CFB976B-46AA-46CA-80D4-74867649B4DB}"
+	ProjectSection(SolutionItems) = preProject
+		mp4v2.autopkg = mp4v2.autopkg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Static (MDd)|Win32 = Debug Static (MDd)|Win32
