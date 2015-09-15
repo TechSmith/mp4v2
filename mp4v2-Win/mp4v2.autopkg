@@ -10,7 +10,7 @@ nuget
    nuspec
    {
       id = mp4v2;
-      version: 3.0.0.0;
+      version: 3.0.0.1;
       title: MP4v2 Library;
       authors: { TechSmith Corporation };
       owners: { TechSmith Corporation };
@@ -22,7 +22,8 @@ nuget
       description: @"The MP4v2 library provides an API to create and modify mp4 files as defined by ISO-IEC:14496-1:2001 MPEG-4 Systems. Code is derived from mp4v2 v2.0 (https://code.google.com/p/mp4v2/).
       New features:
       Breaking Changes:
-         3.0.0.0 Update to Visual Studio 2015 and remove some projects that weren't included in the NuGet package";
+         3.0.0.0 Update to Visual Studio 2015 and remove some projects that weren't included in the NuGet package
+         3.0.0.1 Fix path to lib files";
       copyright: "";
       tags: { native, mp4v2, mp4, vs2015 };
    };
