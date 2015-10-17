@@ -2562,6 +2562,26 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         }
         return false;
     }
+   
+    void MP4FreeH264SeqPictHeaders(uint8_t** pSeqHeaders,
+                                   uint32_t* pSeqHeaderSize,
+                                   uint8_t** pPictHeader,
+                                   uint32_t* pPictHeaderSize )
+    {
+        uint32_t ix;
+
+        for (ix = 0; pSeqHeaderSize[ix] != 0; ++ix) {
+            free(pSeqHeaders[ix]);
+        }
+        free(pSeqHeaders);
+        free(pSeqHeaderSize);
+
+        for (ix = 0; pPictHeaderSize[ix] != 0; ++ix) {
+            free(pPictHeader[ix]);
+        }
+        free(pPictHeader);
+        free(pPictHeaderSize);
+    }
 
     bool MP4GetTrackH264SeqPictHeaders (MP4FileHandle hFile,
                                         MP4TrackId trackId,
