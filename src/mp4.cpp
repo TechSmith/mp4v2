@@ -2785,6 +2785,13 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         return false;
     }
 
+    MP4V2_EXPORT
+    void MP4FreeTrackAtomData(uint8_t * pAtomData)
+    {
+       if (pAtomData)
+          free(pAtomData);
+    }
+   
     bool MP4GetTrackIntegerProperty (
         MP4FileHandle hFile, MP4TrackId trackId,
         const char* propName,

@@ -25,6 +25,21 @@ bool MP4GetTrackAtomData (
    uint8_t ** outAtomData, 
    uint64_t * outDataSize);
 
+/** Frees the memory allocated by MP4GetTrackAtomData.
+ *
+ *  MP4FreeTrackAtomData frees the memory that was allocated by a
+ *  call to the MP4GetTrackAtomData function.
+ *
+ *  On the Windows platform the atom data allocated by MP4GetTrackAtomData
+ *  cannot be done directly by the client application because the C runtime
+ *  of the client application and the C runtime of the mp4v2 DLL may be different,
+ *  which will result in an error at runtime.  This function allows the client
+ *  application to let the mp4v2 DLL free the memory with the appropriate CRT heap manager.
+ *
+ *  @param pAtomData pointer to atom data allocated with MP4GetTrackAtomData
+ */
+MP4V2_EXPORT
+void MP4FreeTrackAtomData(uint8_t * pAtomData);
 
 /** Get the track type.
  *
