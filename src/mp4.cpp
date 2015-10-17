@@ -4577,6 +4577,12 @@ bool MP4GetTrackName(
     return false;
 }
 
+void MP4FreeTrackName(char * pTrackName)
+{
+   if (pTrackName)
+      free(pTrackName);
+}
+   
 ///////////////////////////////////////////////////////////////////////////////
 
 bool MP4SetTrackName(
