@@ -10,7 +10,7 @@ nuget
    nuspec
    {
       id = mp4v2;
-      version: 3.0.0.1;
+      version: 3.0.1.0;
       title: MP4v2 Library;
       authors: { TechSmith Corporation };
       owners: { TechSmith Corporation };
@@ -23,7 +23,8 @@ nuget
       New features:
       Breaking Changes:
          3.0.0.0 Update to Visual Studio 2015 and remove some projects that weren't included in the NuGet package
-         3.0.0.1 Fix path to lib files";
+         3.0.0.1 Fix path to lib files
+         3.0.1.0 Bumping the version number since some new functions were added in the past three commits";
       copyright: "";
       tags: { native, mp4v2, mp4, vs2015 };
    };
