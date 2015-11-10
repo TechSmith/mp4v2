@@ -10,7 +10,7 @@ nuget
    nuspec
    {
       id = mp4v2;
-      version: 3.0.1.0;
+      version: 3.0.1.1;
       title: MP4v2 Library;
       authors: { TechSmith Corporation };
       owners: { TechSmith Corporation };
