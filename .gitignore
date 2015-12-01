@@ -48,6 +48,7 @@ dlldata.c
 *.pidb
 *.svclog
 *.scc
+*.VC.opendb
 
 # Visual Studio output directories
 Debug*/
