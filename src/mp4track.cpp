@@ -906,44 +906,49 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
 
     uint32_t drefIndex = pDrefIndexProperty->GetValue();
 
-    MP4Atom* pDrefAtom = m_trakAtom.FindAtom( "trak.mdia.minf.dinf.dref" );
-    ASSERT(pDrefAtom);
-
-    MP4Atom* pUrlAtom = pDrefAtom->GetChildAtom( drefIndex - 1 );
-    ASSERT( pUrlAtom );
-
     File* file;
 
-    // make sure this is actually a url atom (somtimes it's "cios", like in iTunes videos)
-    if( strcmp(pUrlAtom->GetType(), "url ") ||
-        pUrlAtom->GetFlags() & 1 ) {
-        file = NULL; // self-contained
+    if( drefIndex == 0 ) {
+        file = NULL;
     }
     else {
-        MP4StringProperty* pLocationProperty = NULL;
-        ASSERT( pUrlAtom->FindProperty( "*.location", (MP4Property**)&pLocationProperty) );
-        ASSERT( pLocationProperty );
+        MP4Atom* pDrefAtom = m_trakAtom.FindAtom( "trak.mdia.minf.dinf.dref" );
+        ASSERT(pDrefAtom);
 
-        const char* url = pLocationProperty->GetValue();
+        MP4Atom* pUrlAtom = pDrefAtom->GetChildAtom( drefIndex - 1 );
+        ASSERT( pUrlAtom );
 
-        log.verbose3f("\"%s\": dref url = %s", GetFile().GetFilename().c_str(), 
+        // make sure this is actually a url atom (somtimes it's "cios", like in iTunes videos)
+        if( strcmp(pUrlAtom->GetType(), "url ") ||
+            pUrlAtom->GetFlags() & 1 ) {
+            file = NULL; // self-contained
+        }
+        else {
+            MP4StringProperty* pLocationProperty = NULL;
+            ASSERT( pUrlAtom->FindProperty( "*.location", (MP4Property**)&pLocationProperty) );
+            ASSERT( pLocationProperty );
+
+            const char* url = pLocationProperty->GetValue();
+
+            log.verbose3f("\"%s\": dref url = %s", GetFile().GetFilename().c_str(), 
                       url);
 
-        file = (File*)-1;
+            file = (File*)-1;
 
-        // attempt to open url if it's a file url
-        // currently this is the only thing we understand
-        if( !strncmp( url, "file:", 5 )) {
-            const char* fileName = url + 5;
+            // attempt to open url if it's a file url
+            // currently this is the only thing we understand
+            if( !strncmp( url, "file:", 5 )) {
+                const char* fileName = url + 5;
 
-            if( !strncmp(fileName, "//", 2 ))
-                fileName = strchr( fileName + 2, '/' );
+                if( !strncmp(fileName, "//", 2 ))
+                    fileName = strchr( fileName + 2, '/' );
 
-            if( fileName ) {
-                file = new File( fileName, File::MODE_READ );
-                if( !file->open() ) {
-                    delete file;
-                    file = (File*)-1;
+                if( fileName ) {
+                    file = new File( fileName, File::MODE_READ );
+                    if( !file->open() ) {
+                        delete file;
+                        file = (File*)-1;
+                    }
                 }
             }
         }
