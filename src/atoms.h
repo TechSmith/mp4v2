@@ -271,7 +271,7 @@ private:
     MP4Mp4vAtom &operator= ( const MP4Mp4vAtom &src );
 };
 
-   class MP4Tsc2Atom : public MP4Atom {
+class MP4Tsc2Atom : public MP4Atom {
    public:
       MP4Tsc2Atom(MP4File &file);
       void Generate();
@@ -279,8 +279,17 @@ private:
       MP4Tsc2Atom();
       MP4Tsc2Atom( const MP4Tsc2Atom &src );
       MP4Tsc2Atom &operator= ( const MP4Tsc2Atom &src );
-   };
+};
 
+class MP4PNGAtom : public MP4Atom {
+   public:
+      MP4PNGAtom(MP4File &file);
+      void Generate();
+   private:
+      MP4PNGAtom();
+      MP4PNGAtom( const MP4PNGAtom &src );
+      MP4PNGAtom &operator= ( const MP4PNGAtom &src );
+};
 
 class MP4S263Atom : public MP4Atom {
 public:
