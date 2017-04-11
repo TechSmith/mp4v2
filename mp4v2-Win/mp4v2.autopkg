@@ -10,7 +10,7 @@ nuget
    nuspec
    {
       id = mp4v2;
-      version: 3.0.2.0;
+      version: 3.0.3.0;
       title: MP4v2 Library;
       authors: { TechSmith Corporation };
       owners: { TechSmith Corporation };
@@ -26,7 +26,8 @@ nuget
          3.0.0.1 Fix path to lib files
          3.0.1.0 Bumping the version number since some new functions were added in the past three commits
          3.0.1.1 Sync version number in .autopkg with the one in mp4v2/project.h
-         3.0.2.0 Picking up Stephen Wagner's updates to handle PNG MOVs";
+         3.0.2.0 Picking up Stephen Wagner's updates to handle PNG MOVs
+         3.0.3.0 Fixing a bug where version number 3.0.2 was inconsistent in project.h";
       copyright: "";
       tags: { native, mp4v2, mp4, vs2015 };
    };
