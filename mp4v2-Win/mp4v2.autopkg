@@ -2,7 +2,7 @@ configurations
 {
    Toolset {
       key : "PlatformToolset";
-      choices: { v140 };
+      choices: { v141 };
    };
 }
 nuget
@@ -10,7 +10,7 @@ nuget
    nuspec
    {
       id = mp4v2;
-      version: 3.0.3.0;
+      version: 4.0.0.0;
       title: MP4v2 Library;
       authors: { TechSmith Corporation };
       owners: { TechSmith Corporation };
@@ -28,15 +28,16 @@ nuget
          3.0.1.1 Sync version number in .autopkg with the one in mp4v2/project.h
          3.0.2.0 Picking up Stephen Wagner's updates to handle PNG MOVs
          3.0.3.0 Fixing a bug where version number 3.0.2 was inconsistent in project.h";
+         4.0.0.0 Updated to Visual Studio 2017
       copyright: "";
-      tags: { native, mp4v2, mp4, vs2015 };
+      tags: { native, mp4v2, mp4, vs2017 };
    };
 
    files
    {
       nestedInclude:  { #destination = ${d_include}mp4v2; ..\include\mp4v2\*.h };
       
-      ("Win32,x64", "v140", "Debug,Release") =>
+      ("Win32,x64", "v141", "Debug,Release") =>
       {
          [${0},${1},${2}]
          {
