@@ -1071,7 +1071,7 @@ void MP4Track::GetSampleTimes(MP4SampleId sampleId,
     }
 
     for (uint32_t sttsIndex = m_cachedSttsIndex; sttsIndex < numStts; sttsIndex++) {
-        uint32_t sampleCount =
+        uint64_t sampleCount =
             m_pSttsSampleCountProperty->GetValue(sttsIndex);
         uint32_t sampleDelta =
             m_pSttsSampleDeltaProperty->GetValue(sttsIndex);
@@ -1109,7 +1109,7 @@ MP4SampleId MP4Track::GetSampleIdFromTime(
     MP4Duration elapsed = 0;
 
     for (uint32_t sttsIndex = 0; sttsIndex < numStts; sttsIndex++) {
-        uint32_t sampleCount =
+        uint64_t sampleCount =
             m_pSttsSampleCountProperty->GetValue(sttsIndex);
         uint32_t sampleDelta =
             m_pSttsSampleDeltaProperty->GetValue(sttsIndex);
