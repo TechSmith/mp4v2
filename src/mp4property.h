@@ -176,6 +176,8 @@ private:
             if (m_implicit) { \
                 return; \
             } \
+            if ( index >= m_values.Size() )\
+               std::cout << "accessing out of bounds array with size: " << xsize << std::endl;\
             m_values[index] = file.ReadUInt##xsize(); \
         } \
         \
@@ -200,9 +202,149 @@ private:
     MP4INTEGER_PROPERTY_DECL2(size, size)
 
 MP4INTEGER_PROPERTY_DECL(8);
-MP4INTEGER_PROPERTY_DECL(16);
+//MP4INTEGER_PROPERTY_DECL(16);
+class MP4Integer16Property : public MP4IntegerProperty{
+public: 
+   MP4Integer16Property(MP4Atom& parentAtom, const char* name) 
+      : MP4IntegerProperty(parentAtom, name) { 
+      SetCount(1); 
+      m_values[0] = 0; 
+   } 
+   
+   MP4PropertyType GetType() { 
+      return Integer16Property;
+   } 
+   
+   uint32_t GetCount() { 
+      return m_values.Size(); 
+   } 
+   void SetCount(uint32_t count) { 
+      m_values.Resize(count); 
+   } 
+   
+   uint16_t GetValue(uint32_t index = 0) {
+      return m_values[index]; 
+   } 
+   
+   void SetValue(uint16_t value, uint32_t index = 0) { 
+      if (m_readOnly) { 
+            ostringstream msg; 
+            msg << "property is read-only: " << m_name; 
+            throw new PlatformException(msg.str().c_str(), EACCES, __FILE__, __LINE__, __FUNCTION__); 
+      } 
+      m_values[index] = value; 
+   } 
+   void AddValue(uint16_t value) {
+      m_values.Add(value); 
+   } 
+   void InsertValue(uint16_t value, uint32_t index) {
+      m_values.Insert(value, index); 
+   } 
+   void DeleteValue(uint32_t index) { 
+      m_values.Delete(index); 
+   } 
+   void IncrementValue(int32_t increment = 1, uint32_t index = 0) { 
+      m_values[index] += increment; 
+   } 
+   void Read(MP4File& file, uint32_t index = 0) { 
+      if (m_implicit) { 
+            return; 
+      }
+      if ( index >= m_values.Size() )
+         std::cout << "ooops";
+
+      m_values[index] = file.ReadUInt16(); 
+   } 
+   
+   void Write(MP4File& file, uint32_t index = 0) { 
+      if (m_implicit) { 
+            return; 
+      } 
+      file.WriteUInt16(m_values[index]); 
+   } 
+   void Dump(uint8_t indent, 
+      bool dumpImplicits, uint32_t index = 0); 
+
+protected: 
+   MP4Integer16Array m_values;
+private: 
+   MP4Integer16Property();
+   MP4Integer16Property ( const MP4Integer16Property &src );
+   MP4Integer16Property &operator= ( const MP4Integer16Property &src );
+};
+
 MP4INTEGER_PROPERTY_DECL2(32, 24);
-MP4INTEGER_PROPERTY_DECL(32);
+//MP4INTEGER_PROPERTY_DECL(32);
+
+class MP4Integer32Property : public MP4IntegerProperty { 
+   public: 
+      MP4Integer32Property( MP4Atom& parentAtom, const char* name ) 
+         : MP4IntegerProperty(parentAtom, name) { 
+         SetCount(1); 
+         m_values[0] = 0; 
+      } 
+        
+      MP4PropertyType GetType() { 
+         return Integer32Property;
+      } 
+        
+      uint32_t GetCount() { 
+         return m_values.Size(); 
+      } 
+      void SetCount(uint32_t count) { 
+         m_values.Resize(count); 
+      } 
+        
+      uint32_t GetValue(uint32_t index = 0) { 
+         return m_values[index]; 
+      } 
+        
+      void SetValue(uint32_t value, uint32_t index = 0) { 
+         if (m_readOnly) { 
+               ostringstream msg; 
+               msg << "property is read-only: " << m_name; 
+               throw new PlatformException(msg.str().c_str(), EACCES, __FILE__, __LINE__, __FUNCTION__); 
+         } 
+         m_values[index] = value; 
+      } 
+      void AddValue(uint32_t value) { 
+         m_values.Add(value); 
+      } 
+      void InsertValue(uint32_t value, uint32_t index) { 
+         m_values.Insert(value, index); 
+      } 
+      void DeleteValue(uint32_t index) { 
+         m_values.Delete(index); 
+      } 
+      void IncrementValue(int32_t increment = 1, uint32_t index = 0) { 
+         m_values[index] += increment; 
+      } 
+      void Read(MP4File& file, uint32_t index = 0) { 
+         if (m_implicit) { 
+               return; 
+         } 
+         if ( index >= m_values.Size() )
+            std::cout << "ooops";
+         m_values[index] = file.ReadUInt32(); 
+      } 
+        
+      void Write(MP4File& file, uint32_t index = 0) { 
+         if (m_implicit) { 
+               return; 
+         } 
+         file.WriteUInt32(m_values[index]); 
+      } 
+      void Dump(uint8_t indent, 
+         bool dumpImplicits, uint32_t index = 0); 
+    
+   protected: 
+      MP4Integer32Array m_values; 
+   private: 
+      MP4Integer32Property();
+      MP4Integer32Property ( const MP4Integer32Property &src );
+      MP4Integer32Property &operator= ( const MP4Integer32Property &src );
+   };
+
 MP4INTEGER_PROPERTY_DECL(64);
 
 class MP4BitfieldProperty : public MP4Integer64Property {
