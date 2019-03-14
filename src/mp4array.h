@@ -102,6 +102,8 @@ protected:
         void Resize(MP4ArrayIndex newSize) { \
             m_numElements = newSize; \
             m_maxNumElements = newSize; \
+            if ( (uint64_t) m_maxNumElements * sizeof(type) > 0xFFFFFFFF ) \
+               throw new PlatformException("requested array size exceeds 4GB", ERANGE, __FILE__, __LINE__, __FUNCTION__); /* prevent overflow */ \
             m_elements = (type*)MP4Realloc(m_elements, \
                 m_maxNumElements * sizeof(type)); \
         } \
