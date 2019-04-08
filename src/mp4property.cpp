@@ -391,8 +391,10 @@ void MP4StringProperty::Read( MP4File& file, uint32_t index )
         char*& value = m_values[i];
 
         // Generally a default atom setting, e.g. see atom_avc1.cpp, "JVT/AVC Coding"; we'll leak this string if
-        // we don't free.  Note that MP4Free checks for null.
-        MP4Free(value); 
+        // we don't free.  Note that this code checks for null before calling free and sets the pointer to null
+        // after freeing it, to prevent a double free in case an exception occurs before the value is reassigned.
+        MP4Free( value );
+        value = NULL;
 
         if( m_useCountedFormat ) {
             value = file.ReadCountedString( (m_useUnicode ? 2 : 1), m_useExpandedCount, m_fixedLength );
