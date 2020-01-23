@@ -901,7 +901,8 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
     if( !pStsdEntryAtom->FindProperty( "*.dataReferenceIndex", (MP4Property**)&pDrefIndexProperty ) ||
         pDrefIndexProperty == NULL )
     {
-        throw new Exception( "invalid stsd entry", __FILE__, __LINE__, __FUNCTION__ );
+        //throw new Exception( "invalid stsd entry", __FILE__, __LINE__, __FUNCTION__ );
+       return NULL;
     }
 
     uint32_t drefIndex = pDrefIndexProperty->GetValue();
