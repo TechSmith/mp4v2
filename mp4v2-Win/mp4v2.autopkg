@@ -10,7 +10,7 @@ nuget
    nuspec
    {
       id = mp4v2;
-      version: 4.1.0.0;
+      version: 4.1.1;
       title: MP4v2 Library;
       authors: { TechSmith Corporation };
       owners: { TechSmith Corporation };
@@ -30,7 +30,8 @@ nuget
          3.0.3.0 Fixing a bug where version number 3.0.2 was inconsistent in project.h
          4.0.0.0 Updated to Visual Studio 2017
          4.0.1.0 Fix autopkg file
-         4.1.0.0 Security fixes";
+         4.1.0.0 Security fixes
+         4.1.1   (pre-release) Be more tolerant of some MOV-specific quirks";
       copyright: "";
       tags: { native, mp4v2, mp4, vs2017 };
    };
