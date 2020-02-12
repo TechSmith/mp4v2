@@ -10,7 +10,7 @@ nuget
    nuspec
    {
       id = mp4v2;
-      version: 4.1.2;
+      version: 4.1.3;
       title: MP4v2 Library;
       authors: { TechSmith Corporation };
       owners: { TechSmith Corporation };
@@ -32,7 +32,8 @@ nuget
          4.0.1.0 Fix autopkg file
          4.1.0.0 Security fixes
          4.1.1   (pre-release) Be more tolerant of some MOV-specific quirks
-         4.1.2   Finalize changes to handle ProRes MOV files correctly";
+         4.1.2   Finalize changes to handle ProRes MOV files correctly
+         4.1.3   ftyp atom optional for MOV files";
       copyright: "";
       tags: { native, mp4v2, mp4, vs2017 };
    };

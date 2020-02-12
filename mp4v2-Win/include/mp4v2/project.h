@@ -6,13 +6,13 @@
 #define MP4V2_PROJECT_name            "MP4v2"
 #define MP4V2_PROJECT_name_lower      "mp4v2"
 #define MP4V2_PROJECT_name_upper      "MP4V2"
-#define MP4V2_PROJECT_name_formal     "MP4v2 4.1.2.0"
+#define MP4V2_PROJECT_name_formal     "MP4v2 4.1.3.0"
 #define MP4V2_PROJECT_url_website     "http://code.google.com/p/mp4v2"
 #define MP4V2_PROJECT_url_downloads   "http://code.google.com/p/mp4v2/downloads/list"
 #define MP4V2_PROJECT_url_discussion  "http://groups.google.com/group/mp4v2"
 #define MP4V2_PROJECT_irc             "irc://irc.freenode.net/handbrake"
 #define MP4V2_PROJECT_bugreport       "<eddyg@myreflection.org>"
-#define MP4V2_PROJECT_version         "4.1.2.0"
+#define MP4V2_PROJECT_version         "4.1.3.0"
 #define MP4V2_PROJECT_version_hex     0x00020100
 #define MP4V2_PROJECT_version_major   4
 #define MP4V2_PROJECT_version_minor   1

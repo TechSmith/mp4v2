@@ -906,8 +906,15 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
        // in local file" case... for our purposes, we don't care about cases where the
        // media data is outside of the local file.
        MP4FtypAtom *pFtypAtom = reinterpret_cast<MP4FtypAtom *>( m_File.FindAtom( "ftyp" ) );
-       if ( pFtypAtom != nullptr )
+
+       // MOV spec does not require "ftyp" atom...
+       if ( pFtypAtom == nullptr )
        {
+          return nullptr;
+       }
+       else
+       {
+          // ... but most often it is present with a "qt  " value
           const char *majorBrand = pFtypAtom->majorBrand.GetValue();
           if ( ::strcmp( pFtypAtom->majorBrand.GetValue(), "qt  " ) == 0 )
              return nullptr;
