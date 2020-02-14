@@ -901,7 +901,25 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
     if( !pStsdEntryAtom->FindProperty( "*.dataReferenceIndex", (MP4Property**)&pDrefIndexProperty ) ||
         pDrefIndexProperty == NULL )
     {
-        throw new Exception( "invalid stsd entry", __FILE__, __LINE__, __FUNCTION__ );
+       // mp4v2 does not know about Apple-specific atoms in MOV files so may fail to find
+       // the DataReferenceIndex. In that case, we'll handle it the same as the "media data
+       // in local file" case... for our purposes, we don't care about cases where the
+       // media data is outside of the local file.
+       MP4FtypAtom *pFtypAtom = reinterpret_cast<MP4FtypAtom *>( m_File.FindAtom( "ftyp" ) );
+
+       // MOV spec does not require "ftyp" atom...
+       if ( pFtypAtom == nullptr )
+       {
+          return nullptr;
+       }
+       else
+       {
+          // ... but most often it is present with a "qt  " value
+          const char *majorBrand = pFtypAtom->majorBrand.GetValue();
+          if ( ::strcmp( pFtypAtom->majorBrand.GetValue(), "qt  " ) == 0 )
+             return nullptr;
+       }
+       throw new Exception( "invalid stsd entry", __FILE__, __LINE__, __FUNCTION__ );
     }
 
     uint32_t drefIndex = pDrefIndexProperty->GetValue();
