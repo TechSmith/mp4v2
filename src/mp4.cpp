@@ -38,6 +38,14 @@
 
 #include "src/impl.h"
 
+namespace mp4v2
+{
+   namespace impl
+   {
+      ShouldParseAtomCallback g_parseCallback = nullptr;
+   }
+}
+
 using namespace mp4v2::impl;
 
 static MP4File  *ConstructMP4File ( void )
@@ -141,6 +149,13 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
     if (pFile)
         delete pFile;
     return MP4_INVALID_FILE_HANDLE;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+void MP4SetShouldParseAtomCallback( ShouldParseAtomCallback cb )
+{
+   g_parseCallback = cb;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

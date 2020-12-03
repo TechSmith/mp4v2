@@ -358,6 +358,12 @@ MP4FileHandle MP4ReadProvider(
     const char*            fileName,
     const MP4FileProvider* fileProvider DEFAULT(NULL) );
 
+typedef bool( *ShouldParseAtomCallback )( uint32_t );
+MP4V2_EXPORT
+void MP4SetShouldParseAtomCallback(
+   ShouldParseAtomCallback f
+);
+
 /** @} ***********************************************************************/
 
 #endif /* MP4V2_FILE_H */
