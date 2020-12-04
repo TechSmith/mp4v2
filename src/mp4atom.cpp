@@ -227,8 +227,6 @@ bool MP4Atom::IsReasonableType(const char* type)
     return false;
 }
 
-extern ShouldParseAtomCallback g_parseCallback;
-
 // generic read
 void MP4Atom::Read()
 {
@@ -238,7 +236,8 @@ void MP4Atom::Read()
     }
 
     // skip parsing of certain atoms
-    if ( g_parseCallback != nullptr && g_parseCallback( ATOMID(m_type) ) )
+    ShouldParseAtomCallback cb = m_File.GetShouldParseAtomCallback();
+    if ( cb == nullptr || ( cb != nullptr && cb( ATOMID(m_type) ) ) )
     {
        ReadProperties();
 

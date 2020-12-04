@@ -66,6 +66,8 @@ void MP4File::Init()
     m_bufWriteBits = 0;
     m_editName = NULL;
     m_trakName[0] = '\0';
+
+    m_shouldParseAtomCallback = nullptr;
 }
 
 MP4File::~MP4File()

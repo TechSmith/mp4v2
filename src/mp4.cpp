@@ -38,14 +38,6 @@
 
 #include "src/impl.h"
 
-namespace mp4v2
-{
-   namespace impl
-   {
-      ShouldParseAtomCallback g_parseCallback = nullptr;
-   }
-}
-
 using namespace mp4v2::impl;
 
 static MP4File  *ConstructMP4File ( void )
@@ -153,9 +145,26 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void MP4SetShouldParseAtomCallback( ShouldParseAtomCallback cb )
+void MP4SetShouldParseAtomCallback( MP4FileHandle hFile, ShouldParseAtomCallback cb )
 {
-   g_parseCallback = cb;
+   if (!MP4_IS_VALID_FILE_HANDLE(hFile))
+      return;
+   try
+   {
+      ASSERT(hFile);
+      MP4File& file = *static_cast<MP4File*>(hFile);
+      file.SetShouldParseAtomCallback( cb );
+   }
+   catch( Exception* x ) {
+      mp4v2::impl::log.errorf(*x);
+      delete x;
+   }
+   catch( ... ) {
+      mp4v2::impl::log.errorf("%s: unknown exception accessing MP4File "
+                               "filename", __FUNCTION__ );
+   }
+
+//   g_parseCallback = cb;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

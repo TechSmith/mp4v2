@@ -361,6 +361,7 @@ MP4FileHandle MP4ReadProvider(
 typedef bool( *ShouldParseAtomCallback )( uint32_t );
 MP4V2_EXPORT
 void MP4SetShouldParseAtomCallback(
+   MP4FileHandle hFile,
    ShouldParseAtomCallback f
 );
 
