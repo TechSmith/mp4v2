@@ -855,6 +855,15 @@ public:
         MP4Atom* pAncestorAtom,
         const char* childName);
 
+    ShouldParseAtomCallback GetShouldParseAtomCallback() const
+    {
+       return m_shouldParseAtomCallback;
+    }
+    void SetShouldParseAtomCallback( ShouldParseAtomCallback cb )
+    {
+       m_shouldParseAtomCallback = cb;
+    }
+
 protected:
     void Init();
     void Open( const char* name, File::Mode mode, const MP4FileProvider* provider );
@@ -988,6 +997,8 @@ protected:
 
     char m_trakName[1024];
     char *m_editName;
+
+    ShouldParseAtomCallback m_shouldParseAtomCallback;
 
  private:
     MP4File ( const MP4File &src );

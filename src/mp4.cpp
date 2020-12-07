@@ -87,7 +87,7 @@ const char* MP4GetFilename( MP4FileHandle hFile )
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4FileHandle MP4Read( const char* fileName )
+MP4FileHandle MP4Read( const char* fileName, ShouldParseAtomCallback cb/*=nullptr*/ )
 {
     if (!fileName)
         return MP4_INVALID_FILE_HANDLE;
@@ -99,6 +99,10 @@ MP4FileHandle MP4Read( const char* fileName )
     try
     {
         ASSERT(pFile);
+
+        if ( cb != nullptr )
+           pFile->SetShouldParseAtomCallback( cb );
+
         pFile->Read( fileName, NULL );
         return (MP4FileHandle)pFile;
     }
