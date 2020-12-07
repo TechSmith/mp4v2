@@ -237,7 +237,7 @@ void MP4Atom::Read()
 
     // skip parsing of certain atoms
     ShouldParseAtomCallback cb = m_File.GetShouldParseAtomCallback();
-    if ( cb == nullptr || ( cb != nullptr && cb( ATOMID(m_type) ) ) )
+    if ( cb == nullptr || cb( ATOMID(m_type) ) )
     {
        ReadProperties();
 

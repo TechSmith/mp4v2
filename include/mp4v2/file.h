@@ -328,9 +328,12 @@ bool MP4Optimize(
  *      the library.
  *      On error, #MP4_INVALID_FILE_HANDLE.
  */
+typedef bool( *ShouldParseAtomCallback )( uint32_t );
+
 MP4V2_EXPORT
 MP4FileHandle MP4Read(
-    const char* fileName );
+    const char* fileName,
+    ShouldParseAtomCallback cb = nullptr );
 
 /** Read an existing mp4 file.
  *
@@ -357,13 +360,6 @@ MP4V2_EXPORT
 MP4FileHandle MP4ReadProvider(
     const char*            fileName,
     const MP4FileProvider* fileProvider DEFAULT(NULL) );
-
-typedef bool( *ShouldParseAtomCallback )( uint32_t );
-MP4V2_EXPORT
-void MP4SetShouldParseAtomCallback(
-   MP4FileHandle hFile,
-   ShouldParseAtomCallback f
-);
 
 /** @} ***********************************************************************/
 

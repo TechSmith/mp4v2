@@ -87,7 +87,7 @@ const char* MP4GetFilename( MP4FileHandle hFile )
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4FileHandle MP4Read( const char* fileName )
+MP4FileHandle MP4Read( const char* fileName, ShouldParseAtomCallback cb/*=nullptr*/ )
 {
     if (!fileName)
         return MP4_INVALID_FILE_HANDLE;
@@ -99,6 +99,10 @@ MP4FileHandle MP4Read( const char* fileName )
     try
     {
         ASSERT(pFile);
+
+        if ( cb != nullptr )
+           pFile->SetShouldParseAtomCallback( cb );
+
         pFile->Read( fileName, NULL );
         return (MP4FileHandle)pFile;
     }
@@ -141,30 +145,6 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
     if (pFile)
         delete pFile;
     return MP4_INVALID_FILE_HANDLE;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-void MP4SetShouldParseAtomCallback( MP4FileHandle hFile, ShouldParseAtomCallback cb )
-{
-   if (!MP4_IS_VALID_FILE_HANDLE(hFile))
-      return;
-   try
-   {
-      ASSERT(hFile);
-      MP4File& file = *static_cast<MP4File*>(hFile);
-      file.SetShouldParseAtomCallback( cb );
-   }
-   catch( Exception* x ) {
-      mp4v2::impl::log.errorf(*x);
-      delete x;
-   }
-   catch( ... ) {
-      mp4v2::impl::log.errorf("%s: unknown exception accessing MP4File "
-                               "filename", __FUNCTION__ );
-   }
-
-//   g_parseCallback = cb;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
