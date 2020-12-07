@@ -2,7 +2,7 @@ configurations
 {
    Toolset {
       key : "PlatformToolset";
-      choices: { v142 };
+      choices: { v141 };
    };
 }
 nuget
@@ -10,7 +10,7 @@ nuget
    nuspec
    {
       id = mp4v2;
-      version: 4.1.4;
+      version: 4.1.5;
       title: MP4v2 Library;
       authors: { TechSmith Corporation };
       owners: { TechSmith Corporation };
@@ -34,7 +34,8 @@ nuget
          4.1.1   (pre-release) Be more tolerant of some MOV-specific quirks
          4.1.2   Finalize changes to handle ProRes MOV files correctly
          4.1.3   ftyp atom optional for MOV files
-         4.1.4   Update to VS 2019; allow parsing of some atoms to be skipped";
+         4.1.4   Update to VS 2019; allow parsing of some atoms to be skipped
+         4.1.5   Revert to VS 2017";
       copyright: "";
       tags: { native, mp4v2, mp4, vs2017 };
    };
@@ -43,7 +44,7 @@ nuget
    {
       nestedInclude:  { #destination = ${d_include}mp4v2; ..\include\mp4v2\*.h };
 
-      ("Win32,x64", "v142", "Debug,Release") =>
+      ("Win32,x64", "v141", "Debug,Release") =>
       {
          [${0},${1},${2}]
          {
