@@ -3,8 +3,6 @@ project(mp4v2_2_0_0)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories("${CMAKE_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}/include")
-
 set(HEADER_FILES
         include/mp4v2/chapter.h
         include/mp4v2/file.h
@@ -187,6 +185,12 @@ set(SOURCE_FILES
 #add_library(mp4v2-shared SHARED ${HEADER_FILES} ${SOURCE_FILES})
 # Just expose a static lib for now
 add_library(mp4v2 STATIC ${HEADER_FILES} ${SOURCE_FILES})
+
+target_include_directories(mp4v2 PRIVATE
+   ${CMAKE_CURRENT_SOURCE_DIR}
+   ${CMAKE_CURRENT_SOURCE_DIR}/include
+   )
+set(MP4V2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE )
 
 #set(UTILITY_HEADERS
 #        util/impl.h)
