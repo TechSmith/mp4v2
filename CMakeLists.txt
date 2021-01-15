@@ -190,7 +190,6 @@ target_include_directories(mp4v2 PRIVATE
    ${CMAKE_CURRENT_SOURCE_DIR}
    ${CMAKE_CURRENT_SOURCE_DIR}/include
    )
-set(MP4V2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE )
 
 #set(UTILITY_HEADERS
 #        util/impl.h)
