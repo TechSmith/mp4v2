@@ -133,14 +133,13 @@
 		1F23E70325B1CF8C00931DCB /* isma.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67625B1CF2D00931DCB /* isma.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F23E70425B1CF8C00931DCB /* itmf_generic.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67E25B1CF2D00931DCB /* itmf_generic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F23E70525B1CF8C00931DCB /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67D25B1CF2D00931DCB /* platform.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1F23E70625B1CF8C00931DCB /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67525B1CF2D00931DCB /* file.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F23E70625B1CF8C00931DCB /* file2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67525B1CF2D00931DCB /* file2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F23E70725B1CF8C00931DCB /* track.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67825B1CF2D00931DCB /* track.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F23E70825B1CF8C00931DCB /* general.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67425B1CF2D00931DCB /* general.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F23E70925B1CF8C00931DCB /* project.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67925B1CF2D00931DCB /* project.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F23E70A25B1CF8C00931DCB /* sample.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67C25B1CF2D00931DCB /* sample.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F23E70B25B1CF8C00931DCB /* file_prop.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67325B1CF2D00931DCB /* file_prop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F23E70C25B1CF8C00931DCB /* chapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67225B1CF2D00931DCB /* chapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1F23E70D25B1CF8C00931DCB /* mp4v2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67725B1CF2D00931DCB /* mp4v2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F23E74025B1D1A500931DCB /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E73F25B1D1A100931DCB /* config.h */; };
 		1F23E76A25B1D37400931DCB /* crc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F23E74325B1D34300931DCB /* crc.cpp */; };
 		1F23E76B25B1D37400931DCB /* other.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E74525B1D34300931DCB /* other.h */; };
@@ -156,7 +155,7 @@
 		1F23E77625B1D37A00931DCB /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E75525B1D34300931DCB /* util.h */; };
 		1F23E77725B1D37A00931DCB /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F23E76625B1D34300931DCB /* Utility.cpp */; };
 		1F23E77825B1D37A00931DCB /* impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E75E25B1D34300931DCB /* impl.h */; };
-		1F23E77B25B1D4BA00931DCB /* time.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E72825B1D0DE00931DCB /* time.h */; };
+		1F23E77B25B1D4BA00931DCB /* time_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E72825B1D0DE00931DCB /* time_posix.h */; };
 		1F23E77C25B1D4BA00931DCB /* time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F23E72B25B1D0DE00931DCB /* time.cpp */; };
 		1F23E77D25B1D4BA00931DCB /* time_posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F23E72925B1D0DE00931DCB /* time_posix.cpp */; };
 		1F23E77F25B1D50C00931DCB /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E73A25B1D0DE00931DCB /* platform.h */; };
@@ -177,6 +176,10 @@
 		1F23E7B425B1E4F100931DCB /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F23E71E25B1D0DD00931DCB /* File.cpp */; };
 		1F23E7B525B1E4F100931DCB /* File_posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F23E72025B1D0DD00931DCB /* File_posix.cpp */; };
 		1F23E7B625B1E4F100931DCB /* FileSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E71B25B1D0DD00931DCB /* FileSystem.h */; };
+		1F23E7D625B1ECD400931DCB /* impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E73925B1D0DE00931DCB /* impl.h */; };
+		1F23E7DC25B1F04600931DCB /* mp4v2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E67725B1CF2D00931DCB /* mp4v2.h */; };
+		1F23E7E425B1F4C700931DCB /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F23E73725B1D0DE00931DCB /* error.cpp */; };
+		1F23E7E625B1F4C900931DCB /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F23E73625B1D0DE00931DCB /* error.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -307,7 +310,7 @@
 		1F23E67225B1CF2D00931DCB /* chapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chapter.h; sourceTree = "<group>"; };
 		1F23E67325B1CF2D00931DCB /* file_prop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = file_prop.h; sourceTree = "<group>"; };
 		1F23E67425B1CF2D00931DCB /* general.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = general.h; sourceTree = "<group>"; };
-		1F23E67525B1CF2D00931DCB /* file.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		1F23E67525B1CF2D00931DCB /* file2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = file2.h; sourceTree = "<group>"; };
 		1F23E67625B1CF2D00931DCB /* isma.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = isma.h; sourceTree = "<group>"; };
 		1F23E67725B1CF2D00931DCB /* mp4v2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mp4v2.h; sourceTree = "<group>"; };
 		1F23E67825B1CF2D00931DCB /* track.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = track.h; sourceTree = "<group>"; };
@@ -331,7 +334,7 @@
 		1F23E72425B1D0DE00931DCB /* platform_win32_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform_win32_impl.h; sourceTree = "<group>"; };
 		1F23E72525B1D0DE00931DCB /* platform_win32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform_win32.h; sourceTree = "<group>"; };
 		1F23E72625B1D0DE00931DCB /* platform_base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform_base.h; sourceTree = "<group>"; };
-		1F23E72825B1D0DE00931DCB /* time.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = time.h; sourceTree = "<group>"; };
+		1F23E72825B1D0DE00931DCB /* time_posix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = time_posix.h; sourceTree = "<group>"; };
 		1F23E72925B1D0DE00931DCB /* time_posix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = time_posix.cpp; sourceTree = "<group>"; };
 		1F23E72A25B1D0DE00931DCB /* time_win32.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = time_win32.cpp; sourceTree = "<group>"; };
 		1F23E72B25B1D0DE00931DCB /* time.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = time.cpp; sourceTree = "<group>"; };
@@ -572,7 +575,7 @@
 				1F23E67225B1CF2D00931DCB /* chapter.h */,
 				1F23E67325B1CF2D00931DCB /* file_prop.h */,
 				1F23E67425B1CF2D00931DCB /* general.h */,
-				1F23E67525B1CF2D00931DCB /* file.h */,
+				1F23E67525B1CF2D00931DCB /* file2.h */,
 				1F23E67625B1CF2D00931DCB /* isma.h */,
 				1F23E67725B1CF2D00931DCB /* mp4v2.h */,
 				1F23E67825B1CF2D00931DCB /* track.h */,
@@ -630,7 +633,7 @@
 		1F23E72725B1D0DE00931DCB /* time */ = {
 			isa = PBXGroup;
 			children = (
-				1F23E72825B1D0DE00931DCB /* time.h */,
+				1F23E72825B1D0DE00931DCB /* time_posix.h */,
 				1F23E72925B1D0DE00931DCB /* time_posix.cpp */,
 				1F23E72A25B1D0DE00931DCB /* time_win32.cpp */,
 				1F23E72B25B1D0DE00931DCB /* time.cpp */,
@@ -736,17 +739,17 @@
 				1F23E6D025B1CF7100931DCB /* bmff.h in Headers */,
 				1F23E6EE25B1CF8200931DCB /* odcommands.h in Headers */,
 				1F23E6AA25B1CF6500931DCB /* enum.h in Headers */,
-				1F23E70D25B1CF8C00931DCB /* mp4v2.h in Headers */,
 				1F23E70A25B1CF8C00931DCB /* sample.h in Headers */,
 				1F23E7A425B1DF8400931DCB /* process.h in Headers */,
 				1F23E77325B1D37A00931DCB /* Utility.h in Headers */,
 				1F23E70425B1CF8C00931DCB /* itmf_generic.h in Headers */,
 				1F23E74025B1D1A500931DCB /* config.h in Headers */,
-				1F23E77B25B1D4BA00931DCB /* time.h in Headers */,
+				1F23E77B25B1D4BA00931DCB /* time_posix.h in Headers */,
 				1F23E6C125B1CF6B00931DCB /* util.h in Headers */,
 				1F23E70525B1CF8C00931DCB /* platform.h in Headers */,
+				1F23E7D625B1ECD400931DCB /* impl.h in Headers */,
 				1F23E68825B1CF3B00931DCB /* mp4file.h in Headers */,
-				1F23E70625B1CF8C00931DCB /* file.h in Headers */,
+				1F23E70625B1CF8C00931DCB /* file2.h in Headers */,
 				1F23E79D25B1DF6B00931DCB /* option.h in Headers */,
 				1F23E77F25B1D50C00931DCB /* platform.h in Headers */,
 				1F23E76C25B1D37400931DCB /* crc.h in Headers */,
@@ -754,6 +757,7 @@
 				1F23E7B625B1E4F100931DCB /* FileSystem.h in Headers */,
 				1F23E6D625B1CF7800931DCB /* mp4property.h in Headers */,
 				1F23E68025B1CF3B00931DCB /* mp4descriptor.h in Headers */,
+				1F23E7DC25B1F04600931DCB /* mp4v2.h in Headers */,
 				1F23E6A825B1CF6500931DCB /* src.h in Headers */,
 				1F23E77525B1D37A00931DCB /* TrackModifier.h in Headers */,
 				1F23E7A025B1DF7100931DCB /* warning.h in Headers */,
@@ -786,6 +790,7 @@
 				1F23E7AF25B1E4E800931DCB /* endian.h in Headers */,
 				1F23E6A625B1CF6500931DCB /* qosqualifiers.h in Headers */,
 				1F23E6E325B1CF7D00931DCB /* impl.h in Headers */,
+				1F23E7E625B1F4C900931DCB /* error.h in Headers */,
 				1F23E6E625B1CF7D00931DCB /* itmf.h in Headers */,
 				1F23E6F025B1CF8200931DCB /* mp4util.h in Headers */,
 				1F23E6DE25B1CF7D00931DCB /* Tags.h in Headers */,
@@ -930,6 +935,7 @@
 				1F23E6BA25B1CF6B00931DCB /* atom_video.cpp in Sources */,
 				1F23E6C825B1CF6B00931DCB /* isma.cpp in Sources */,
 				1F23E6FC25B1CF8200931DCB /* atom_avcC.cpp in Sources */,
+				1F23E7E425B1F4C700931DCB /* error.cpp in Sources */,
 				1F23E6C925B1CF6B00931DCB /* atom_mdat.cpp in Sources */,
 				1F23E6A725B1CF6500931DCB /* atom_s263.cpp in Sources */,
 				1F23E67F25B1CF3B00931DCB /* atom_nmhd.cpp in Sources */,
@@ -1083,7 +1089,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../include/mp4v2",
-					"$(PROJECT_DIR)/../**",
+					"$(PROJECT_DIR)/..",
+				);
+				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-stdlib=libc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1104,7 +1115,12 @@
 				GCC_PREFIX_HEADER = "mp4v2-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../include/mp4v2",
-					"$(PROJECT_DIR)/../**",
+					"$(PROJECT_DIR)/..",
+				);
+				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-stdlib=libc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

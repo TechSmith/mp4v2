@@ -36,7 +36,7 @@
 #include "libplatform/process/process.h"
 #include "libplatform/prog/option.h"
 #include "libplatform/sys/error.h"
-#include "libplatform/time/time.h"
+#include "libplatform/time/time_posix.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 

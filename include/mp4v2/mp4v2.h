@@ -55,7 +55,7 @@ extern "C" {
 /*****************************************************************************/
 
 #include <mp4v2/general.h>
-#include <mp4v2/file.h>
+#include <mp4v2/file2.h>
 #include <mp4v2/file_prop.h>
 #include <mp4v2/track.h>
 #include <mp4v2/track_prop.h>
