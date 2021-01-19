@@ -480,7 +480,7 @@ Utility::process_impl()
     }
 
     for( ;; ) {
-        const int code = prog::getOption( _argc, _argv, _shortOptions.c_str(), _longOptions, NULL );
+        const unsigned int code = prog::getOption( _argc, _argv, _shortOptions.c_str(), _longOptions, NULL );
         if( code == -1 )
             break;
 

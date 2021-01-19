@@ -864,18 +864,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
 //
     mp4v2_ismacrypParams *MP4DefaultISMACrypParams(mp4v2_ismacrypParams *ptr)
     {
-        try
-        {
-            if (ptr == NULL) {
-                ptr = (mp4v2_ismacrypParams *)MP4Malloc(sizeof(mp4v2_ismacrypParams));
-            }
-            memset(ptr, 0, sizeof(*ptr));
-            return ptr;
-        }
-
-        catch (...) {
-            return MP4_INVALID_TRACK_ID;
-        }
+         if (ptr == NULL) {
+             ptr = (mp4v2_ismacrypParams *)MP4Malloc(sizeof(mp4v2_ismacrypParams));
+         }
+         memset(ptr, 0, sizeof(*ptr));
+         return ptr;
     }
 
 
