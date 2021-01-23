@@ -31,7 +31,6 @@ set(HEADER_FILES
         libplatform/impl.h
         libplatform/platform.h
         libplatform/platform_base.h
-        libplatform/platform_posix.h
         libplatform/warning.h
         libutil/crc.h
         libutil/Database.h
@@ -79,11 +78,7 @@ set(HEADER_FILES
         src/util.h)
 
 set(SOURCE_FILES
-        libplatform/io/File_posix.cpp
         libplatform/io/FileSystem.cpp
-        libplatform/io/FileSystem_posix.cpp
-        libplatform/number/random_posix.cpp
-        libplatform/process/process_posix.cpp
         libplatform/prog/option.cpp
         libplatform/sys/error.cpp
         libplatform/time/time.cpp
@@ -182,14 +177,40 @@ set(SOURCE_FILES
         src/rtphint.cpp
         src/text.cpp)
 
+if (WIN32)
+    list (APPEND HEADER_FILES
+        libplatform/platform_win32.h
+    )
+    list (APPEND SOURCE_FILES
+        libplatform/io/File_win32.cpp
+        libplatform/process/process_win32.cpp
+        libplatform/number/random_win32.cpp
+        libplatform/io/FileSystem_win32.cpp
+    )
+else ()
+    list (APPEND HEADER_FILES
+        libplatform/platform_posix.h
+    )
+    list(APPEND SOURCE_FILES
+        libplatform/io/File_posix.cpp
+        libplatform/process/process_posix.cpp
+        libplatform/number/random_posix.cpp
+        libplatform/io/FileSystem_posix.cpp
+    )
+endif ()
+
 #add_library(mp4v2-shared SHARED ${HEADER_FILES} ${SOURCE_FILES})
 # Just expose a static lib for now
 add_library(mp4v2 STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
+target_compile_definitions(mp4v2 PRIVATE
+    MP4V2_USE_STATIC_LIB=1
+)
+
 target_include_directories(mp4v2 PRIVATE
    ${CMAKE_CURRENT_SOURCE_DIR}
    ${CMAKE_CURRENT_SOURCE_DIR}/include
-   )
+)
 
 #set(UTILITY_HEADERS
 #        util/impl.h)
