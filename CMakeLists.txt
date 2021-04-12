@@ -32,6 +32,7 @@ set(HEADER_FILES
         libplatform/platform.h
         libplatform/platform_base.h
         libplatform/platform_posix.h
+        libplatform/platform_win32.h
         libplatform/warning.h
         libutil/crc.h
         libutil/Database.h
@@ -78,16 +79,29 @@ set(HEADER_FILES
         src/text.h
         src/util.h)
 
-set(SOURCE_FILES
+if(WIN32)
+   set(OSSPEC_SRC
+        libplatform/io/File_win32.cpp
+        libplatform/io/FileSystem_win32.cpp
+        libplatform/number/random_win32.cpp
+        libplatform/process/process_win32.cpp
+        libplatform/time/time_win32.cpp
+   )
+else()
+   set(OSSPEC_SRC
         libplatform/io/File_posix.cpp
-        libplatform/io/FileSystem.cpp
         libplatform/io/FileSystem_posix.cpp
         libplatform/number/random_posix.cpp
         libplatform/process/process_posix.cpp
+        libplatform/time/time_posix.cpp
+       )
+endif()
+set(SOURCE_FILES
+        ${OSSPEC_SRC}
+        libplatform/io/FileSystem.cpp
         libplatform/prog/option.cpp
         libplatform/sys/error.cpp
         libplatform/time/time.cpp
-        libplatform/time/time_posix.cpp
         libutil/crc.cpp
         libutil/Database.cpp
         libutil/other.cpp
@@ -190,6 +204,9 @@ target_include_directories(mp4v2 PRIVATE
    ${CMAKE_CURRENT_SOURCE_DIR}
    ${CMAKE_CURRENT_SOURCE_DIR}/include
    )
+
+target_compile_definitions(mp4v2 PRIVATE MP4V2_EXPORTS)
+
 
 #set(UTILITY_HEADERS
 #        util/impl.h)
