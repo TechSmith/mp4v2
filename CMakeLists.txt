@@ -86,6 +86,7 @@ if(WIN32)
         libplatform/number/random_win32.cpp
         libplatform/process/process_win32.cpp
         libplatform/time/time_win32.cpp
+        libplatform/platform_win32.cpp
    )
 else()
    set(OSSPEC_SRC
