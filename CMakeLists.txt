@@ -86,6 +86,7 @@ if(WIN32)
         libplatform/number/random_win32.cpp
         libplatform/process/process_win32.cpp
         libplatform/time/time_win32.cpp
+        libplatform/platform_win32.cpp
    )
 else()
    set(OSSPEC_SRC
@@ -205,7 +206,7 @@ target_include_directories(mp4v2 PRIVATE
    ${CMAKE_CURRENT_SOURCE_DIR}/include
    )
 
-target_compile_definitions(mp4v2 PRIVATE MP4V2_EXPORTS)
+target_compile_definitions(mp4v2 PRIVATE MP4V2_USE_STATIC_LIB)
 
 
 #set(UTILITY_HEADERS
