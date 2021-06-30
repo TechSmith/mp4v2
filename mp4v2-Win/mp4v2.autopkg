@@ -10,7 +10,7 @@ nuget
    nuspec
    {
       id = mp4v2;
-      version: 5.0.0;
+      version: 5.0.1;
       title: MP4v2 Library;
       authors: { TechSmith Corporation };
       owners: { TechSmith Corporation };
@@ -38,8 +38,9 @@ nuget
          4.1.5   Revert to VS 2017
          4.1.6   Fix crash with fuzzed mp4";
          5.0.0.0 Update to Visual Studio 2019
+         5.0.1   Fix SourceLink symbols
       copyright: "";
-      tags: { native, mp4v2, mp4, vs2017 };
+      tags: { native, mp4v2, mp4, vs2019 };
    };
 
    files
