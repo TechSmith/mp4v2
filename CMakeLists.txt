@@ -197,9 +197,7 @@ set(SOURCE_FILES
         src/rtphint.cpp
         src/text.cpp)
 
-#add_library(mp4v2-shared SHARED ${HEADER_FILES} ${SOURCE_FILES})
-# Just expose a static lib for now
-add_library(mp4v2 STATIC ${HEADER_FILES} ${SOURCE_FILES})
+add_library(mp4v2 SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 target_include_directories(mp4v2 PRIVATE
    ${CMAKE_CURRENT_SOURCE_DIR}
