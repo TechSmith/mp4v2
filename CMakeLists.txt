@@ -199,6 +199,8 @@ set(SOURCE_FILES
 
 add_library(mp4v2 SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
+target_compile_definitions(mp4v2 PRIVATE MP4V2_EXPORTS)
+
 target_include_directories(mp4v2 PRIVATE
    ${CMAKE_CURRENT_SOURCE_DIR}
    ${CMAKE_CURRENT_SOURCE_DIR}/include
