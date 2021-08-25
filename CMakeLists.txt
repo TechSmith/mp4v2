@@ -197,21 +197,21 @@ set(SOURCE_FILES
         src/rtphint.cpp
         src/text.cpp)
 
-#add_library(mp4v2-shared SHARED ${HEADER_FILES} ${SOURCE_FILES})
+add_library(mp4v2 SHARED ${HEADER_FILES} ${SOURCE_FILES})
 # Just expose a static lib for now
-add_library(mp4v2 STATIC ${HEADER_FILES} ${SOURCE_FILES})
+#add_library(mp4v2 STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 target_include_directories(mp4v2 PRIVATE
    ${CMAKE_CURRENT_SOURCE_DIR}
    ${CMAKE_CURRENT_SOURCE_DIR}/include
    )
 
-target_compile_definitions(mp4v2 PUBLIC MP4V2_USE_STATIC_LIB)
-
+#target_compile_definitions(mp4v2 PUBLIC MP4V2_USE_STATIC_LIB)
+target_compile_definitions(mp4v2 PRIVATE MP4V2_EXPORTS)
 
 #set(UTILITY_HEADERS
 #        util/impl.h)
-#
+
 #add_executable(mp4art ${UTILITY_HEADERS} util/mp4art.cpp)
 #target_link_libraries(mp4art mp4v2-static)
 #
@@ -225,7 +225,12 @@ target_compile_definitions(mp4v2 PUBLIC MP4V2_USE_STATIC_LIB)
 #target_link_libraries(mp4file mp4v2-static)
 #
 #add_executable(mp4info ${UTILITY_HEADERS} util/mp4info.cpp)
-#target_link_libraries(mp4info mp4v2-static)
+add_executable(mp4info util/mp4info.cpp)
+target_include_directories(mp4info PRIVATE SYSTEM
+   ${CMAKE_CURRENT_SOURCE_DIR}
+   ${CMAKE_CURRENT_SOURCE_DIR}/include
+   )
+target_link_libraries(mp4info mp4v2)
 #
 #add_executable(mp4subtitle ${UTILITY_HEADERS} util/mp4subtitle.cpp)
 #target_link_libraries(mp4subtitle mp4v2-static)
