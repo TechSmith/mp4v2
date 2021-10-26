@@ -531,7 +531,7 @@ Utility::process_impl()
                 printHelp( false, false );
                 return SUCCESS;
 
-            case LC_DEBUG:
+            /*case LC_DEBUG:
                 debugUpdate( std::strtoul( prog::optarg, NULL, 0 ) );
                 break;
 
@@ -556,7 +556,7 @@ Utility::process_impl()
 
             default:
                 printUsage( true );
-                return FAILURE;
+                return FAILURE;*/
         }
     }
 
