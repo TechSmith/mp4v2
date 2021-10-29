@@ -531,7 +531,9 @@ Utility::process_impl()
                 printHelp( false, false );
                 return SUCCESS;
 
-            /*case LC_DEBUG:
+#if defined(__clang__) && defined(_MSC_VER)
+#else
+            case LC_DEBUG:
                 debugUpdate( std::strtoul( prog::optarg, NULL, 0 ) );
                 break;
 
@@ -556,7 +558,8 @@ Utility::process_impl()
 
             default:
                 printUsage( true );
-                return FAILURE;*/
+                return FAILURE;
+#endif
         }
     }
 
