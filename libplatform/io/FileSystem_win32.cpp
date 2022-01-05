@@ -32,7 +32,7 @@ getAttributes ( string  path_ )
         // the places it's called.
         ostringstream msg;
         msg << "can't convert file to UTF-16(" << filename.utf8 << ")";
-        throw new Exception(msg.str(),__FILE__,__LINE__,__FUNCTION__);
+        throw new EXCEPTION(msg.str());
     }
 
     DWORD attributes = ::GetFileAttributesW(filename);
@@ -49,7 +49,7 @@ getAttributes ( string  path_ )
         // Anything else is an error
         ostringstream msg;
         msg << "GetFileAttributes(" << filename.utf8 << ") failed (" << last_err << ")";
-        throw new Exception(msg.str(),__FILE__,__LINE__,__FUNCTION__);
+        throw new EXCEPTION(msg.str());
     }
 
     // path exists so return its attributes

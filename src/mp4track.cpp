@@ -232,7 +232,7 @@ MP4Track::MP4Track(MP4File& file, MP4Atom& trakAtom)
 
     // was everything found?
     if (!success) {
-        throw new Exception("invalid track", __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("invalid track");
     }
     CalculateBytesPerSample();
 
@@ -277,7 +277,7 @@ void MP4Track::ReadSample(
     uint32_t*     dependencyFlags )
 {
     if( sampleId == MP4_INVALID_SAMPLE_ID )
-        throw new Exception( "sample id can't be zero", __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("sample id can't be zero");
 
     if( hasDependencyFlags )
         *hasDependencyFlags = !m_sdtpLog.empty();
@@ -288,7 +288,7 @@ void MP4Track::ReadSample(
         }
         else {
             if( sampleId > m_sdtpLog.size() )
-                throw new Exception( "sample id > sdtp logsize", __FILE__, __LINE__, __FUNCTION__ );
+                throw new EXCEPTION("sample id > sdtp logsize");
             *dependencyFlags = m_sdtpLog[sampleId-1]; // sampleId is 1-based
         }
     }
@@ -301,14 +301,13 @@ void MP4Track::ReadSample(
 
     File* fin = GetSampleFile( sampleId );
     if( fin == (File*)-1 )
-        throw new Exception( "sample is located in an inaccessible file", __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("sample is located in an inaccessible file");
 
     uint64_t fileOffset = GetSampleFileOffset(sampleId);
 
     uint32_t sampleSize = GetSampleSize(sampleId);
     if (*ppBytes != NULL && *pNumBytes < sampleSize) {
-        throw new Exception("sample buffer is too small",
-                            __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("sample buffer is too small");
     }
     *pNumBytes = sampleSize;
 
@@ -370,8 +369,7 @@ void MP4Track::ReadSampleFragment(
     uint8_t* pDest)
 {
     if (sampleId == MP4_INVALID_SAMPLE_ID) {
-        throw new Exception("invalid sample id",
-                            __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("invalid sample id");
     }
 
     if (sampleId != m_cachedReadSampleId) {
@@ -389,8 +387,7 @@ void MP4Track::ReadSampleFragment(
     }
 
     if (sampleOffset + sampleLength > m_cachedReadSampleSize) {
-        throw new Exception("offset and/or length are too large",
-                            __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("offset and/or length are too large");
     }
 
     memcpy(pDest, &m_pCachedReadSample[sampleOffset], sampleLength);
@@ -410,7 +407,7 @@ void MP4Track::WriteSample(
                   m_trackId, m_writeSampleId, numBytes, numBytes);
 
     if (pBytes == NULL && numBytes > 0) {
-        throw new Exception("no sample data", __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("no sample data");
     }
 
     if (m_isAmr == AMR_UNINITIALIZED ) {
@@ -864,7 +861,7 @@ uint32_t MP4Track::GetSampleStscIndex(MP4SampleId sampleId)
     uint32_t numStscs = m_pStscCountProperty->GetValue();
 
     if (numStscs == 0) {
-        throw new Exception("No data chunks exist", __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("No data chunks exist");
     }
 
     for (stscIndex = 0; stscIndex < numStscs; stscIndex++) {
@@ -919,7 +916,7 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
           if ( ::strcmp( pFtypAtom->majorBrand.GetValue(), "qt  " ) == 0 )
              return nullptr;
        }
-       throw new Exception( "invalid stsd entry", __FILE__, __LINE__, __FUNCTION__ );
+       throw new EXCEPTION("invalid stsd entry");
     }
 
     uint32_t drefIndex = pDrefIndexProperty->GetValue();
@@ -1114,8 +1111,7 @@ void MP4Track::GetSampleTimes(MP4SampleId sampleId,
         elapsed += sampleCount * sampleDelta;
     }
 
-    throw new Exception("sample id out of range",
-                        __FILE__, __LINE__, __FUNCTION__ );
+    throw new EXCEPTION("sample id out of range");
 }
 
 MP4SampleId MP4Track::GetSampleIdFromTime(
@@ -1155,8 +1151,7 @@ MP4SampleId MP4Track::GetSampleIdFromTime(
         elapsed += sampleCount * sampleDelta;
     }
 
-    throw new Exception("time out of range",
-                        __FILE__, __LINE__, __FUNCTION__);
+    throw new EXCEPTION("time out of range");
 
     return 0; // satisfy MS compiler
 }
@@ -1209,8 +1204,7 @@ uint32_t MP4Track::GetSampleCttsIndex(MP4SampleId sampleId,
         sid += sampleCount;
     }
 
-    throw new Exception("sample id out of range",
-                        __FILE__, __LINE__, __FUNCTION__ );
+    throw new EXCEPTION("sample id out of range");
     return 0; // satisfy MS compiler
 }
 
@@ -1704,14 +1698,12 @@ MP4EditId MP4Track::AddEdit(MP4EditId editId)
 void MP4Track::DeleteEdit(MP4EditId editId)
 {
     if (editId == MP4_INVALID_EDIT_ID) {
-        throw new Exception("edit id can't be zero",
-                            __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("edit id can't be zero");
     }
 
     if (!m_pElstCountProperty
             || m_pElstCountProperty->GetValue() == 0) {
-        throw new Exception("no edits exist",
-                            __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("no edits exist");
     }
 
     m_pElstMediaTimeProperty->DeleteValue(editId - 1);
@@ -1879,8 +1871,7 @@ MP4SampleId MP4Track::GetSampleIdFromEditTime(
             return sampleId;
         }
 
-        throw new Exception("time out of range",
-                            __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("time out of range");
 
     } else { // no edit list
         sampleId = GetSampleIdFromTime(editWhen, false);

@@ -33,15 +33,22 @@ namespace mp4v2 { namespace impl {
 #ifndef ASSERT
 #   define ASSERT(expr) \
         if (!(expr)) { \
-            throw new Exception("assert failure: " LIBMPV42_STRINGIFY((expr)), __FILE__, __LINE__, __FUNCTION__ ); \
+            throw new EXCEPTION("assert failure: " LIBMPV42_STRINGIFY((expr))); \
         }
 #endif
 
-#define WARNING(expr) \
-    if (expr) { \
-        log.errorf("Warning (%s) in %s at line %u", \
-                         LIBMPV42_STRINGIFY(expr), __FILE__, __LINE__); \
-    }
+#ifdef NDEBUG
+#   define WARNING(expr) \
+        if (expr) { \
+            log.errorf("Warning: %s", LIBMPV42_STRINGIFY(expr)); \
+        }
+#else
+#   define WARNING(expr) \
+        if (expr) { \
+            log.errorf("Warning (%s) in %s at line %u", \
+                            LIBMPV42_STRINGIFY(expr), __FILE__, __LINE__); \
+        }
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -55,7 +62,7 @@ inline void* MP4Malloc(size_t size) {
     if (size == 0) return NULL;
     void* p = malloc(size);
     if (p == NULL && size > 0) {
-        throw new PlatformException("malloc failed",errno,__FILE__,__LINE__,__FUNCTION__);
+        throw new PLATFORM_EXCEPTION("malloc failed", errno);
     }
     return p;
 }
@@ -79,7 +86,7 @@ inline void* MP4Realloc(void* p, uint32_t newSize) {
 
     void* temp = realloc(p, newSize);
     if (temp == NULL && newSize > 0) {
-        throw new PlatformException("malloc failed",errno,__FILE__,__LINE__,__FUNCTION__);
+        throw new PLATFORM_EXCEPTION("malloc failed", errno);
     }
     return temp;
 }

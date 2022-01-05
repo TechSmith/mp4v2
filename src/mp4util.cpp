@@ -258,7 +258,7 @@ uint64_t MP4ConvertTime(uint64_t t,
 {
     // avoid float point exception
     if (oldTimeScale == 0) {
-        throw new Exception("division by zero", __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("division by zero");
     }
 
     if (oldTimeScale == newTimeScale) return t;

@@ -74,7 +74,7 @@ protected:
         \
         void Insert(type newElement, MP4ArrayIndex newIndex) { \
             if (newIndex > m_numElements) { \
-                  throw new PlatformException("illegal array index", ERANGE, __FILE__, __LINE__, __FUNCTION__); \
+                  throw new PLATFORM_EXCEPTION("illegal array index", ERANGE); \
             } \
             if (m_numElements == m_maxNumElements) { \
                 m_maxNumElements = max(m_maxNumElements, (MP4ArrayIndex)1) * 2; \
@@ -91,7 +91,7 @@ protected:
             if (!ValidIndex(index)) { \
                 ostringstream msg; \
                 msg << "illegal array index: " << index << " of " << m_numElements; \
-                throw new PlatformException(msg.str().c_str(), ERANGE, __FILE__, __LINE__, __FUNCTION__); \
+                throw new PLATFORM_EXCEPTION(msg.str().c_str(), ERANGE); \
             } \
             m_numElements--; \
             if (index < m_numElements) { \
@@ -103,7 +103,7 @@ protected:
             m_numElements = newSize; \
             m_maxNumElements = newSize; \
             if ( (uint64_t) m_maxNumElements * sizeof(type) > 0xFFFFFFFF ) \
-               throw new PlatformException("requested array size exceeds 4GB", ERANGE, __FILE__, __LINE__, __FUNCTION__); /* prevent overflow */ \
+               throw new PLATFORM_EXCEPTION("requested array size exceeds 4GB", ERANGE); /* prevent overflow */ \
             m_elements = (type*)MP4Realloc(m_elements, \
                 m_maxNumElements * sizeof(type)); \
         } \
@@ -115,7 +115,7 @@ protected:
             else { \
                 ostringstream msg; \
                 msg << "illegal array index: " << index << " of " << m_numElements; \
-                throw new PlatformException(msg.str().c_str(), ERANGE, __FILE__, __LINE__, __FUNCTION__ ); \
+                throw new PLATFORM_EXCEPTION(msg.str().c_str(), ERANGE); \
             } \
         } \
         \
