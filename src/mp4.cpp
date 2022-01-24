@@ -857,6 +857,29 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         return MP4_INVALID_TRACK_ID;
     }
 
+    MP4TrackId MP4AddLPCMAudioTrack(
+        MP4FileHandle hFile,
+        uint32_t timeScale,
+        uint32_t channels,
+        uint32_t bitsPerChannel,
+        uint32_t formatFlags)
+    {
+        if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
+            try {
+                return ((MP4File*)hFile)->
+                       AddLPCMAudioTrack(timeScale, channels, bitsPerChannel, formatFlags);
+            }
+            catch( Exception* x ) {
+                mp4v2::impl::log.errorf(*x);
+                delete x;
+            }
+            catch( ... ) {
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
+            }
+        }
+        return MP4_INVALID_TRACK_ID;
+    }
+
 //
 // API to initialize ismacryp properties to sensible defaults.
 // if the input pointer is null then an ismacryp params is malloc'd.

@@ -311,6 +311,42 @@ void MP4Float32Property::Dump(uint8_t indent,
                  m_name, m_values[index]);
 }
 
+// MP4Float64Property
+
+void MP4Float64Property::Read(MP4File& file, uint32_t index)
+{
+    if (m_implicit) {
+        return;
+    }
+
+    m_values[index] = file.ReadDouble();
+}
+
+void MP4Float64Property::Write(MP4File& file, uint32_t index)
+{
+    if (m_implicit) {
+        return;
+    }
+
+    file.WriteDouble(m_values[index]);
+}
+
+void MP4Float64Property::Dump(uint8_t indent,
+                              bool dumpImplicits, uint32_t index)
+{
+    if (m_implicit && !dumpImplicits) {
+        return;
+    }
+    if (index != 0)
+        log.dump(indent, MP4_LOG_VERBOSE1, "\"%s\": %s[%u] = %f",
+                 m_parentAtom.GetFile().GetFilename().c_str(),
+                 m_name, index, m_values[index]);
+    else
+        log.dump(indent, MP4_LOG_VERBOSE1, "\"%s\": %s = %f",
+                 m_parentAtom.GetFile().GetFilename().c_str(),
+                 m_name, m_values[index]);
+}
+
 // MP4StringProperty
 
 MP4StringProperty::MP4StringProperty(
