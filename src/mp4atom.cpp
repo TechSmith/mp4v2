@@ -891,6 +891,8 @@ MP4Atom::factory( MP4File &file, MP4Atom* parent, const char* type )
             break;
 
         case 'h':
+            if( ATOMID(type) == ATOMID("hvc1") )
+                return new MP4Hvc1Atom(file);
             if( ATOMID(type) == ATOMID("hdlr") )
                 return new MP4HdlrAtom(file);
             if( ATOMID(type) == ATOMID("hint") )
