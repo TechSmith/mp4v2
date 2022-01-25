@@ -6,17 +6,17 @@
 #define MP4V2_PROJECT_name            "MP4v2"
 #define MP4V2_PROJECT_name_lower      "mp4v2"
 #define MP4V2_PROJECT_name_upper      "MP4V2"
-#define MP4V2_PROJECT_name_formal     "MP4v2 5.0.1"
-#define MP4V2_PROJECT_url_website     "http://code.google.com/p/mp4v2"
-#define MP4V2_PROJECT_url_downloads   "http://code.google.com/p/mp4v2/downloads/list"
-#define MP4V2_PROJECT_url_discussion  "http://groups.google.com/group/mp4v2"
+#define MP4V2_PROJECT_name_formal     "MP4v2 5.1.0"
+#define MP4V2_PROJECT_url_website     "https://github.com/bsantos/mp4v2"
+#define MP4V2_PROJECT_url_downloads   "https://github.com/bsantos/mp4v2/releases"
+#define MP4V2_PROJECT_url_discussion  "https://github.com/bsantos/mp4v2/pulls"
 #define MP4V2_PROJECT_irc             "irc://irc.freenode.net/handbrake"
-#define MP4V2_PROJECT_bugreport       "<eddyg@myreflection.org>"
-#define MP4V2_PROJECT_version         "5.0.1"
-#define MP4V2_PROJECT_version_hex     0x00020100
+#define MP4V2_PROJECT_bugreport       "bsantos@cppdev.net"
+#define MP4V2_PROJECT_version         "5.1.0"
+#define MP4V2_PROJECT_version_hex     0x00050100
 #define MP4V2_PROJECT_version_major   5
-#define MP4V2_PROJECT_version_minor   0
-#define MP4V2_PROJECT_version_point   1
+#define MP4V2_PROJECT_version_minor   1
+#define MP4V2_PROJECT_version_point   0
 #define MP4V2_PROJECT_repo_url        "https://mp4v2.googlecode.com/svn/trunk"
 #define MP4V2_PROJECT_repo_root       "https://mp4v2.googlecode.com/svn"
 #define MP4V2_PROJECT_repo_uuid       "6e6572fa-98a6-11dd-ad9f-f77439c74b79"
