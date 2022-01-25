@@ -86,8 +86,12 @@ const char* MP4GetFilename( MP4FileHandle hFile )
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+MP4FileHandle MP4Read( const char* fileName )
+{
+    return MP4Read2(fileName, nullptr);
+}
 
-MP4FileHandle MP4Read( const char* fileName, ShouldParseAtomCallback cb/*=nullptr*/ )
+MP4FileHandle MP4Read2( const char* fileName, ShouldParseAtomCallback cb/*=nullptr*/ )
 {
     if (!fileName)
         return MP4_INVALID_FILE_HANDLE;
