@@ -201,10 +201,8 @@ add_library(mp4v2 SHARED ${HEADER_FILES} ${SOURCE_FILES})
 # Just expose a static lib for now
 #add_library(mp4v2 STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
-target_include_directories(mp4v2 PRIVATE
-   ${CMAKE_CURRENT_SOURCE_DIR}
-   ${CMAKE_CURRENT_SOURCE_DIR}/include
-   )
+target_include_directories(mp4v2 PUBLIC include)
+target_include_directories(mp4v2 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 #target_compile_definitions(mp4v2 PUBLIC MP4V2_USE_STATIC_LIB)
 target_compile_definitions(mp4v2 PRIVATE MP4V2_EXPORTS)
