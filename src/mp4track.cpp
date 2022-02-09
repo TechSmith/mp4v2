@@ -908,16 +908,16 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
        MP4FtypAtom *pFtypAtom = reinterpret_cast<MP4FtypAtom *>( m_File.FindAtom( "ftyp" ) );
 
        // MOV spec does not require "ftyp" atom...
-       if ( pFtypAtom == nullptr )
+       if ( pFtypAtom == NULL )
        {
-          return nullptr;
+          return NULL;
        }
        else
        {
           // ... but most often it is present with a "qt  " value
           const char *majorBrand = pFtypAtom->majorBrand.GetValue();
           if ( ::strcmp( pFtypAtom->majorBrand.GetValue(), "qt  " ) == 0 )
-             return nullptr;
+             return NULL;
        }
        throw new Exception( "invalid stsd entry", __FILE__, __LINE__, __FUNCTION__ );
     }
