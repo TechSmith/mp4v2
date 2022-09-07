@@ -1368,46 +1368,56 @@ MP4TrackId MP4File::AddALawAudioTrack(    uint32_t timeScale)
 }
 
 MP4TrackId MP4File::AddAudioTrack(
-    uint32_t timeScale,
-    MP4Duration sampleDuration,
-    uint8_t audioType)
+   uint32_t timeScale,
+   MP4Duration sampleDuration,
+   uint8_t audioType )
 {
-    MP4TrackId trackId = AddTrack(MP4_AUDIO_TRACK_TYPE, timeScale);
+   MP4TrackId trackId = AddTrack( MP4_AUDIO_TRACK_TYPE, timeScale );
 
-    AddTrackToOd(trackId);
+   AddTrackToOd( trackId );
 
-    SetTrackFloatProperty(trackId, "tkhd.volume", 1.0);
+   SetTrackFloatProperty( trackId, "tkhd.volume", 1.0 );
 
-    (void)InsertChildAtom(MakeTrackName(trackId, "mdia.minf"), "smhd", 0);
+   (void)InsertChildAtom( MakeTrackName( trackId, "mdia.minf" ), "smhd", 0 );
 
-    (void)AddChildAtom(MakeTrackName(trackId, "mdia.minf.stbl.stsd"), "mp4a");
+   const char* atomName = ( audioType == MP4_PCM16_LITTLE_ENDIAN_AUDIO_TYPE ) ? "sowt" : "mp4a";
+   (void)AddChildAtom( MakeTrackName( trackId, "mdia.minf.stbl.stsd" ), atomName );
 
-    AddDescendantAtoms(MakeTrackName(trackId, NULL), "udta.name");
+   AddDescendantAtoms( MakeTrackName( trackId, NULL ), "udta.name" );
 
-    // stsd is a unique beast in that it has a count of the number
-    // of child atoms that needs to be incremented after we add the mp4a atom
-    MP4Integer32Property* pStsdCountProperty;
-    FindIntegerProperty(
-        MakeTrackName(trackId, "mdia.minf.stbl.stsd.entryCount"),
-        (MP4Property**)&pStsdCountProperty);
-    pStsdCountProperty->IncrementValue();
+   // stsd is a unique beast in that it has a count of the number
+   // of child atoms that needs to be incremented after we add the mp4a atom
+   MP4Integer32Property* pStsdCountProperty;
+   FindIntegerProperty(
+      MakeTrackName( trackId, "mdia.minf.stbl.stsd.entryCount" ),
+      (MP4Property**)&pStsdCountProperty );
+   pStsdCountProperty->IncrementValue();
 
-    SetTrackIntegerProperty(trackId,
-                            "mdia.minf.stbl.stsd.mp4a.timeScale", timeScale << 16);
+   if ( audioType == MP4_PCM16_LITTLE_ENDIAN_AUDIO_TYPE )
+   {
+      // todo
+      SetTrackIntegerProperty( trackId, "mdia.minf.stbl.stsd.sowt.timeScale", timeScale << 16 );
+      SetTrackIntegerProperty( trackId, "mdia.minf.stbl.stsd.sowt.channels", 2 );
+      SetTrackIntegerProperty( trackId, "mdia.minf.stbl.stsd.sowt.sampleSize", 16 );
+   }
+   else
+   {
+      SetTrackIntegerProperty( trackId,
+                               "mdia.minf.stbl.stsd.mp4a.timeScale",
+                               timeScale << 16 );
 
-    SetTrackIntegerProperty(trackId,
-                            "mdia.minf.stbl.stsd.mp4a.esds.ESID",
-                            0
-                           );
+      SetTrackIntegerProperty( trackId,
+                               "mdia.minf.stbl.stsd.mp4a.esds.ESID",
+                               0 );
 
-    SetTrackIntegerProperty(trackId,
-                            "mdia.minf.stbl.stsd.mp4a.esds.decConfigDescr.objectTypeId",
-                            audioType);
+      SetTrackIntegerProperty( trackId,
+                               "mdia.minf.stbl.stsd.mp4a.esds.decConfigDescr.objectTypeId",
+                               audioType );
 
-    SetTrackIntegerProperty(trackId,
-                            "mdia.minf.stbl.stsd.mp4a.esds.decConfigDescr.streamType",
-                            MP4AudioStreamType);
-
+      SetTrackIntegerProperty( trackId,
+                               "mdia.minf.stbl.stsd.mp4a.esds.decConfigDescr.streamType",
+                               MP4AudioStreamType );
+   }
     m_pTracks[FindTrackIndex(trackId)]->
     SetFixedSampleDuration(sampleDuration);
 
