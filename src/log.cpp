@@ -32,7 +32,7 @@ MP4LogCallback Log::_cb_func = NULL;
 // There's no mechanism to set the log level at runtime at
 // the moment so construct this so it only logs important
 // stuff.
-Log log(MP4_LOG_WARNING);
+Log log(MP4_LOG_ERROR);
 
 ///////////////////////////////////////////////////////////////////////////////
 
