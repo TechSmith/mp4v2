@@ -206,6 +206,9 @@ target_include_directories(mp4v2 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 #target_compile_definitions(mp4v2 PUBLIC MP4V2_USE_STATIC_LIB)
 target_compile_definitions(mp4v2 PRIVATE MP4V2_EXPORTS)
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+   target_compile_options(mp4v2 PRIVATE -Wno-deprecated-declarations -Wno-invalid-source-encoding -Wno-tautological-pointer-compare)
+endif()
 
 #set(UTILITY_HEADERS
 #        util/impl.h)
