@@ -140,6 +140,7 @@ set(SOURCE_FILES
         src/atom_hinf.cpp
         src/atom_hnti.cpp
         src/atom_href.cpp
+        src/atom_hvc1.cpp
         src/atom_mdat.cpp
         src/atom_mdhd.cpp
         src/atom_meta.cpp
