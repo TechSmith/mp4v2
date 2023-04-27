@@ -355,7 +355,7 @@ void MP4StringProperty::SetValue(const char* value, uint32_t index)
     if (m_readOnly) {
         ostringstream msg;
         msg << "property " << m_name << "is read-only";
-        throw new PlatformException(msg.str().c_str(), EACCES, __FILE__, __LINE__, __FUNCTION__ );
+        throw new PLATFORM_EXCEPTION(msg.str().c_str(), EACCES);
     }
 
     MP4Free(m_values[index]);
@@ -525,13 +525,13 @@ void MP4BytesProperty::SetValue(const uint8_t* pValue, uint32_t valueSize,
     if (m_readOnly) {
         ostringstream msg;
         msg << "property " << m_name << "is read-only";
-        throw new PlatformException(msg.str().c_str(), EACCES, __FILE__, __LINE__, __FUNCTION__ );
+        throw new PLATFORM_EXCEPTION(msg.str().c_str(), EACCES);
     }
     if (m_fixedValueSize) {
         if (valueSize > m_fixedValueSize) {
             ostringstream msg;
             msg << GetParentAtom().GetType() << "." << GetName() << " value size " << valueSize << " exceeds fixed value size " << m_fixedValueSize;
-            throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__ );
+            throw new EXCEPTION(msg.str().c_str());
         }
         if (m_values[index] == NULL) {
             m_values[index] = (uint8_t*)MP4Calloc(m_fixedValueSize);
@@ -556,8 +556,7 @@ void MP4BytesProperty::SetValue(const uint8_t* pValue, uint32_t valueSize,
 void MP4BytesProperty::SetValueSize(uint32_t valueSize, uint32_t index)
 {
     if (m_fixedValueSize) {
-        throw new Exception("can't change size of fixed sized property",
-                            __FILE__, __LINE__, __FUNCTION__ );
+        throw new EXCEPTION("can't change size of fixed sized property");
     }
     if (m_values[index] != NULL) {
         m_values[index] = (uint8_t*)MP4Realloc(m_values[index], valueSize);
