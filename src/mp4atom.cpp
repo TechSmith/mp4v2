@@ -395,7 +395,15 @@ void MP4Atom::ReadProperties(uint32_t startIndex, uint32_t count)
                           m_File.GetPosition(), m_end);
 
             ostringstream oss;
-            oss << "atom '" << GetType() << "' is too small; overrun at property: " << m_pProperties[i]->GetName();
+            const char* propName = nullptr;
+            auto prop = m_pProperties[i];
+            if ( prop != nullptr )
+               propName = prop->GetName();
+            if ( propName != nullptr )
+               oss << "atom '" << GetType() << "' is too small; overrun at property: " << propName;
+            else
+               oss << "atom '" << GetType() << "' is too small; overrun reading property";
+
             throw new Exception( oss.str().c_str(), __FILE__, __LINE__, __FUNCTION__ );
         }
 

@@ -491,9 +491,9 @@ public:
     // number of bytes == stsz.sampleCount.
     MP4BytesProperty& data;
 private:
-    MP4SdtpAtom();
-    MP4SdtpAtom( const MP4SdtpAtom &src );
-    MP4SdtpAtom &operator= ( const MP4SdtpAtom &src );
+    MP4SdtpAtom() = delete;
+    MP4SdtpAtom( const MP4SdtpAtom& src ) = delete;
+    MP4SdtpAtom& operator=( const MP4SdtpAtom& src ) = delete;
 };
 
 class MP4SmiAtom : public MP4Atom {
