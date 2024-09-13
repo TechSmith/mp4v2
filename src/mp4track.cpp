@@ -237,13 +237,15 @@ MP4Track::MP4Track(MP4File& file, MP4Atom& trakAtom)
     CalculateBytesPerSample();
 
     // update sdtp log from sdtp atom
-    MP4SdtpAtom* sdtp = (MP4SdtpAtom*)m_trakAtom.FindAtom( "trak.mdia.minf.stbl.sdtp" );
-    if( sdtp ) {
-        uint8_t* buffer;
-        uint32_t bufsize;
-        sdtp->data.GetValue( &buffer, &bufsize );
-        m_sdtpLog.assign( (char*)buffer, bufsize );
-        free( buffer );
+    MP4Atom* atom = m_trakAtom.FindAtom( "trak.mdia.minf.stbl.sdtp" );
+    MP4SdtpAtom* sdtp = dynamic_cast<MP4SdtpAtom *>( atom );  
+    if ( sdtp != nullptr )
+    {
+       uint8_t* buffer;
+       uint32_t bufsize;
+       sdtp->data.GetValue( &buffer, &bufsize );
+       m_sdtpLog.assign( (char*)buffer, bufsize );
+       free( buffer );
     }
 }
 
