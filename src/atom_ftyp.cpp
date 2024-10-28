@@ -53,7 +53,7 @@ void MP4FtypAtom::Generate()
 
 void MP4FtypAtom::Read()
 {
-   if ( m_size == 0ULL )
+   if ( m_size == 0ULL || m_size < 8ULL )
       return;
 
     compatibleBrands.SetCount( (m_size - 8) / 4 ); // brands array fills rest of atom
