@@ -53,8 +53,8 @@ void MP4FtypAtom::Generate()
 
 void MP4FtypAtom::Read()
 {
-   if ( m_size == 0ULL )
-      return;
+   if ( m_size < 8ULL )
+      throw new Exception( "Invalid ftyp atom size", __FILE__, __LINE__, __FUNCTION__ );
 
     compatibleBrands.SetCount( (m_size - 8) / 4 ); // brands array fills rest of atom
     MP4Atom::Read();
