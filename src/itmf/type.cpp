@@ -281,10 +281,14 @@ namespace {
 
     // POD static init does not need singletons
     static ImageHeader IMAGE_HEADERS[] = {
+        // https://en.wikipedia.org/wiki/List_of_file_signatures
         { BT_BMP,  "\x42\x4d" },
         { BT_GIF,  "GIF87a" },
         { BT_GIF,  "GIF89a" },
-        { BT_JPEG, "\xff\xd8\xff\xe0" },
+        { BT_JPEG, "\xff\xd8\xff\xdb" }, // raw jpeg (SOI -> DQT)
+        { BT_JPEG, "\xff\xd8\xff\xe0\x00\x10\x4a\x46\x49\x46\x00\x01" }, // JFIF (SOI -> APP0 JFIF)
+        { BT_JPEG, "\xff\xd8\xff\xee" }, // Adobe(?) (SOI -> APP14)
+        { BT_JPEG, "\xff\xd8\xff\xe1" }, // Exif (SOI -> APP1 Exif) (real: FF D8 FF E1 ?? ?? 45 78 69 66 00 00)
         { BT_PNG,  "\x89\x50\x4e\x47\x0d\x0a\x1a\x0a" },
         { BT_UNDEFINED } // must be last
     };
