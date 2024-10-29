@@ -327,6 +327,17 @@ float MP4File::ReadFloat()
     return u.f;
 }
 
+double MP4File::ReadDouble()
+{
+    union {
+        double f;
+        uint64_t i;
+    } u;
+
+    u.i = ReadUInt64();
+    return u.f;
+}
+
 void MP4File::WriteFloat(float value)
 {
     union {
@@ -336,6 +347,17 @@ void MP4File::WriteFloat(float value)
 
     u.f = value;
     WriteUInt32(u.i);
+}
+
+void MP4File::WriteDouble(double value)
+{
+    union {
+        double f;
+        uint64_t i;
+    } u;
+
+    u.f = value;
+    WriteUInt64(u.i);
 }
 
 char* MP4File::ReadString()
