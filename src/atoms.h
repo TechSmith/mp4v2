@@ -670,6 +670,16 @@ private:
     MP4VmhdAtom &operator= ( const MP4VmhdAtom &src );
 };
 
+class MP4Vp09Atom : public MP4Atom {
+public:
+   MP4Vp09Atom(MP4File &file);
+   void Generate();
+private:
+   MP4Vp09Atom();
+   MP4Vp09Atom( const MP4Vp09Atom &src );
+   MP4Vp09Atom &operator= ( const MP4Vp09Atom &src );
+};
+
 class MP4HrefAtom : public MP4Atom {
 public:
     MP4HrefAtom(MP4File &file);

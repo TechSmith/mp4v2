@@ -175,6 +175,7 @@ set(SOURCE_FILES
         src/atom_uuid.cpp
         src/atom_video.cpp
         src/atom_vmhd.cpp
+        src/atom_vp09.cpp
         src/cmeta.cpp
         src/descriptors.cpp
         src/enum.tcc
