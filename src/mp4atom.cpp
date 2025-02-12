@@ -1027,6 +1027,8 @@ MP4Atom::factory( MP4File &file, MP4Atom* parent, const char* type )
         case 'v':
             if( ATOMID(type) == ATOMID("vmhd") )
                 return new MP4VmhdAtom(file);
+            if( ATOMID(type) == ATOMID("vp09") )
+                return new MP4Vp09Atom(file);
             break;
 
         case 'y':
