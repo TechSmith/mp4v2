@@ -405,6 +405,7 @@ void MP4Atom::ReadProperties(uint32_t startIndex, uint32_t count)
                oss << "atom '" << GetType() << "' is too small; overrun reading property";
 
             log.verbose1f( "%s", oss.str().c_str() );
+            return;
         }
 
         MP4LogLevel thisVerbosity =
