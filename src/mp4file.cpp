@@ -745,8 +745,7 @@ void MP4File::FindIntegerProperty(const char* name,
     if ( !FindProperty( name, ppProperty, pIndex ) ) {
         ostringstream msg;
         msg << "no such property - " << name;
-        log.errorf( "MP4File::FindIntegerProperty - %s", msg.str().c_str() );
-        return;
+        throw new Exception( msg.str(), __FILE__, __LINE__, __FUNCTION__ );
     }
 
     switch ((*ppProperty)->GetType()) {
