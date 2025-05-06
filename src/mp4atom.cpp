@@ -900,6 +900,8 @@ MP4Atom::factory( MP4File &file, MP4Atom* parent, const char* type )
             break;
 
         case 'h':
+            if( ATOMID(type) == ATOMID("hvc1") )
+                return new MP4Hvc1Atom(file);
             if( ATOMID(type) == ATOMID("hdlr") )
                 return new MP4HdlrAtom(file);
             if( ATOMID(type) == ATOMID("hint") )
@@ -915,11 +917,18 @@ MP4Atom::factory( MP4File &file, MP4Atom* parent, const char* type )
                 return new MP4TrefTypeAtom( file, type );
             if( ATOMID(type) == ATOMID("ima4") )
                 return new MP4SoundAtom( file, type );
+            if( ATOMID(type) == ATOMID("ipcm") )
+                return new MP4SoundAtom( file, type );
             break;
 
         case 'j':
             if( ATOMID(type) == ATOMID("jpeg") )
                 return new MP4VideoAtom(file, "jpeg");
+            break;
+
+        case 'l':
+            if( ATOMID(type) == ATOMID("lpcm") )
+                return new MP4SoundAtom( file, type );
             break;
 
         case 'm':
