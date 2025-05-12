@@ -873,14 +873,12 @@ void MP4File::FindBytesProperty(const char* name,
     if (!FindProperty(name, ppProperty, pIndex)) {
         ostringstream msg;
         msg << "no such property " << name;
-        log.errorf( "MP4File::FindBytesProperty - %s", msg.str().c_str() );
-        return;
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
     if ((*ppProperty)->GetType() != BytesProperty) {
         ostringstream msg;
         msg << "type mismatch - property " << name << " - type " <<  (*ppProperty)->GetType();
-        log.errorf( "MP4File::FindBytesProperty - %s", msg.str().c_str() );
-        return;
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 }
 
