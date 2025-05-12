@@ -742,10 +742,10 @@ bool MP4File::FindProperty(const char* name,
 void MP4File::FindIntegerProperty(const char* name,
                                   MP4Property** ppProperty, uint32_t* pIndex)
 {
-    if ( !FindProperty( name, ppProperty, pIndex ) ) {
+    if (!FindProperty(name, ppProperty, pIndex)) {
         ostringstream msg;
         msg << "no such property - " << name;
-        throw new Exception( msg.str(), __FILE__, __LINE__, __FUNCTION__ );
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 
     switch ((*ppProperty)->GetType()) {
@@ -764,12 +764,10 @@ void MP4File::FindIntegerProperty(const char* name,
 
 uint64_t MP4File::GetIntegerProperty(const char* name)
 {
-    MP4Property* pProperty = nullptr;
+    MP4Property* pProperty;
     uint32_t index;
 
     FindIntegerProperty(name, &pProperty, &index);
-    if ( pProperty == nullptr )
-       return 0ULL;
 
     return ((MP4IntegerProperty*)pProperty)->GetValue(index);
 }
@@ -778,13 +776,12 @@ void MP4File::SetIntegerProperty(const char* name, uint64_t value)
 {
     ProtectWriteOperation(__FILE__, __LINE__, __FUNCTION__);
 
-    MP4Property* pProperty = nullptr;
+    MP4Property* pProperty = NULL;
     uint32_t index = 0;
 
     FindIntegerProperty(name, &pProperty, &index);
 
-    if ( pProperty != nullptr )
-      ((MP4IntegerProperty*)pProperty)->SetValue(value, index);
+    ((MP4IntegerProperty*)pProperty)->SetValue(value, index);
 }
 
 void MP4File::FindFloatProperty(const char* name,
@@ -793,38 +790,35 @@ void MP4File::FindFloatProperty(const char* name,
     if (!FindProperty(name, ppProperty, pIndex)) {
         ostringstream msg;
         msg << "no such property - " << name;
-        log.errorf( "MP4File::FindFloatProperty - %s", msg.str().c_str() );
-        return;
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
     if ((*ppProperty)->GetType() != Float32Property) {
         ostringstream msg;
         msg << "type mismatch - property " << name << " type " << (*ppProperty)->GetType();
-        log.errorf( "MP4File::FindFloatProperty - %s", msg.str().c_str() );
-        return;
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 }
 
 float MP4File::GetFloatProperty(const char* name)
 {
-   MP4Property* pProperty = nullptr;
-   uint32_t index;
+    MP4Property* pProperty;
+    uint32_t index;
 
-   FindFloatProperty(name, &pProperty, &index);
+    FindFloatProperty(name, &pProperty, &index);
 
-   return ( pProperty != nullptr ) ? ( (MP4Float32Property*)pProperty )->GetValue( index ) : 0.f;
+    return ((MP4Float32Property*)pProperty)->GetValue(index);
 }
 
 void MP4File::SetFloatProperty(const char* name, float value)
 {
     ProtectWriteOperation(__FILE__, __LINE__, __FUNCTION__);
 
-    MP4Property* pProperty = nullptr;
+    MP4Property* pProperty;
     uint32_t index;
 
     FindFloatProperty(name, &pProperty, &index);
 
-    if ( pProperty != nullptr )
-      ((MP4Float32Property*)pProperty)->SetValue(value, index);
+    ((MP4Float32Property*)pProperty)->SetValue(value, index);
 }
 
 void MP4File::FindStringProperty(const char* name,
@@ -833,38 +827,35 @@ void MP4File::FindStringProperty(const char* name,
     if (!FindProperty(name, ppProperty, pIndex)) {
         ostringstream msg;
         msg << "no such property - " << name;
-        log.errorf( "MP4File::FindStringProperty - %s", msg.str().c_str() );
-        return;
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
     if ((*ppProperty)->GetType() != StringProperty) {
         ostringstream msg;
         msg << "type mismatch - property " << name << " type " << (*ppProperty)->GetType();
-        log.errorf( "MP4File::FindStringProperty - %s", msg.str().c_str() );
-        return;
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 }
 
 const char* MP4File::GetStringProperty(const char* name)
 {
-   MP4Property* pProperty = nullptr;
-   uint32_t index;
+    MP4Property* pProperty;
+    uint32_t index;
 
-   FindStringProperty(name, &pProperty, &index);
+    FindStringProperty(name, &pProperty, &index);
 
-   return ( pProperty != nullptr ) ? ( (MP4StringProperty*)pProperty )->GetValue( index ) : "";
+    return ((MP4StringProperty*)pProperty)->GetValue(index);
 }
 
 void MP4File::SetStringProperty(const char* name, const char* value)
 {
     ProtectWriteOperation(__FILE__, __LINE__, __FUNCTION__);
 
-    MP4Property* pProperty = nullptr;
+    MP4Property* pProperty;
     uint32_t index;
 
     FindStringProperty(name, &pProperty, &index);
 
-    if ( pProperty != nullptr )
-      ((MP4StringProperty*)pProperty)->SetValue(value, index);
+    ((MP4StringProperty*)pProperty)->SetValue(value, index);
 }
 
 void MP4File::FindBytesProperty(const char* name,
@@ -873,27 +864,24 @@ void MP4File::FindBytesProperty(const char* name,
     if (!FindProperty(name, ppProperty, pIndex)) {
         ostringstream msg;
         msg << "no such property " << name;
-        log.errorf( "MP4File::FindBytesProperty - %s", msg.str().c_str() );
-        return;
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
     if ((*ppProperty)->GetType() != BytesProperty) {
         ostringstream msg;
         msg << "type mismatch - property " << name << " - type " <<  (*ppProperty)->GetType();
-        log.errorf( "MP4File::FindBytesProperty - %s", msg.str().c_str() );
-        return;
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 }
 
 void MP4File::GetBytesProperty(const char* name,
                                uint8_t** ppValue, uint32_t* pValueSize)
 {
-   MP4Property* pProperty = nullptr;
-   uint32_t index;
+    MP4Property* pProperty;
+    uint32_t index;
 
-   FindBytesProperty(name, &pProperty, &index);
+    FindBytesProperty(name, &pProperty, &index);
 
-   if ( pProperty != nullptr )
-      ((MP4BytesProperty*)pProperty)->GetValue(ppValue, pValueSize, index);
+    ((MP4BytesProperty*)pProperty)->GetValue(ppValue, pValueSize, index);
 }
 
 void MP4File::SetBytesProperty(const char* name,
@@ -901,13 +889,12 @@ void MP4File::SetBytesProperty(const char* name,
 {
     ProtectWriteOperation(__FILE__, __LINE__, __FUNCTION__);
 
-    MP4Property* pProperty = nullptr;
+    MP4Property* pProperty;
     uint32_t index;
 
     FindBytesProperty(name, &pProperty, &index);
 
-    if ( pProperty != nullptr )
-      ((MP4BytesProperty*)pProperty)->SetValue(pValue, valueSize, index);
+    ((MP4BytesProperty*)pProperty)->SetValue(pValue, valueSize, index);
 }
 
 
