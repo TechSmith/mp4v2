@@ -1091,9 +1091,9 @@ void MP4Track::GetSampleTimes(MP4SampleId sampleId,
     }
 
     for (uint32_t sttsIndex = m_cachedSttsIndex; sttsIndex < numStts; sttsIndex++) {
-        uint32_t sampleCount =
+        MP4SampleId sampleCount =
             m_pSttsSampleCountProperty->GetValue(sttsIndex);
-        uint32_t sampleDelta =
+        MP4Duration sampleDelta =
             m_pSttsSampleDeltaProperty->GetValue(sttsIndex);
 
         if (sampleId <= sid + sampleCount - 1) {
@@ -1129,9 +1129,9 @@ MP4SampleId MP4Track::GetSampleIdFromTime(
     MP4Duration elapsed = 0;
 
     for (uint32_t sttsIndex = 0; sttsIndex < numStts; sttsIndex++) {
-        uint32_t sampleCount =
+        MP4SampleId sampleCount =
             m_pSttsSampleCountProperty->GetValue(sttsIndex);
-        uint32_t sampleDelta =
+        MP4Duration sampleDelta =
             m_pSttsSampleDeltaProperty->GetValue(sttsIndex);
 
         if (sampleDelta == 0 && sttsIndex < numStts - 1) {
@@ -1195,7 +1195,7 @@ uint32_t MP4Track::GetSampleCttsIndex(MP4SampleId sampleId,
     }
 
     for (uint32_t cttsIndex = m_cachedCttsIndex; cttsIndex < numCtts; cttsIndex++) {
-        uint32_t sampleCount =
+        MP4SampleId sampleCount =
             m_pCttsSampleCountProperty->GetValue(cttsIndex);
         
         if (sampleId <= sid + sampleCount - 1) {
@@ -1319,7 +1319,7 @@ void MP4Track::SetSampleRenderingOffset(MP4SampleId sampleId,
         return;
     }
 
-    uint32_t sampleCount =
+    MP4SampleId sampleCount =
         m_pCttsSampleCountProperty->GetValue(cttsIndex);
 
     // if this sample has it's own ctts entry
@@ -1401,6 +1401,9 @@ bool MP4Track::IsSyncSample(MP4SampleId sampleId)
         if (sampleId == syncSampleId) {
             return true;
         }
+
+        if (stssLIndex == stssRIndex)
+            break;
 
         if (sampleId > syncSampleId) {
             stssLIndex = stssIndex + 1;

@@ -97,12 +97,14 @@ public:
 
     uint64_t GetIntegerProperty(const char* name);
     float GetFloatProperty(const char* name);
+    double GetDoubleProperty(const char* name);
     const char* GetStringProperty(const char* name);
     void GetBytesProperty(const char* name,
                           uint8_t** ppValue, uint32_t* pValueSize);
 
     void SetIntegerProperty(const char* name, uint64_t value);
     void SetFloatProperty(const char* name, float value);
+    void SetDoubleProperty(const char* name, double value);
     void SetStringProperty(const char* name, const char* value);
     void SetBytesProperty(const char* name,
                           const uint8_t* pValue, uint32_t valueSize);
@@ -156,6 +158,8 @@ public:
         MP4TrackId trackId, const char* name);
     float GetTrackFloatProperty(
         MP4TrackId trackId, const char* name);
+    double GetTrackDoubleProperty(
+        MP4TrackId trackId, const char* name);
     const char* GetTrackStringProperty(
         MP4TrackId trackId, const char* name);
     void GetTrackBytesProperty(
@@ -166,6 +170,8 @@ public:
         MP4TrackId trackId, const char* name, int64_t value);
     void SetTrackFloatProperty(
         MP4TrackId trackId, const char* name, float value);
+    void SetTrackDoubleProperty(
+        MP4TrackId trackId, const char* name, double value);
     void SetTrackStringProperty(
         MP4TrackId trackId, const char* name, const char* value);
     void SetTrackBytesProperty(
@@ -250,6 +256,12 @@ public:
         uint32_t timeScale,
         MP4Duration sampleDuration,
         uint8_t audioType);
+
+    MP4TrackId AddLPCMAudioTrack(
+        uint32_t timeScale,
+        uint32_t channels,
+        uint32_t bitsPerChannel,
+        uint32_t formatFlags);
 
     MP4TrackId AddULawAudioTrack(
         uint32_t timeScale);
@@ -789,6 +801,7 @@ public:
     float ReadFixed16();
     float ReadFixed32();
     float ReadFloat();
+    double ReadDouble();
     char* ReadString();
     char* ReadCountedString(
         uint8_t charSize = 1, bool allowExpandedCount = false, uint8_t fixedLength = 0);
@@ -806,6 +819,7 @@ public:
     void WriteFixed16(float value);
     void WriteFixed32(float value);
     void WriteFloat(float value);
+    void WriteDouble(double value);
     void WriteString(char* string);
     void WriteCountedString(char* string,
                             uint8_t charSize = 1,
@@ -883,6 +897,8 @@ protected:
                              MP4Property** ppProperty, uint32_t* pIndex = NULL);
     void FindFloatProperty(const char* name,
                            MP4Property** ppProperty, uint32_t* pIndex = NULL);
+    void FindDoubleProperty(const char* name,
+                            MP4Property** ppProperty, uint32_t* pIndex = NULL);
     void FindStringProperty(const char* name,
                             MP4Property** ppProperty, uint32_t* pIndex = NULL);
     void FindBytesProperty(const char* name,

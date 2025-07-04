@@ -150,6 +150,15 @@ typedef uint32_t (*encryptFunc_t)( uint32_t, uint32_t, uint8_t*, uint32_t*, uint
 #define MP4_MPEG4_LAYER3_AUDIO_TYPE         34
 #define MP4_MPEG4_SLS_AUDIO_TYPE            35
 
+/* MP4 LPCM Audio format flags */
+#define MP4_LPCM_FORMAT_FLAG_FLOAT           (1 << 0)
+#define MP4_LPCM_FORMAT_FLAG_BIG_ENDIAN      (1 << 1)
+#define MP4_LPCM_FORMAT_FLAG_SIGNED_INTEGER  (1 << 2)
+#define MP4_LPCM_FORMAT_FLAG_PACKED          (1 << 3)
+#define MP4_LPCM_FORMAT_FLAG_ALIGNED_HIGH    (1 << 4)
+#define MP4_LPCM_FORMAT_FLAG_NON_INTERLEAVED (1 << 5)
+#define MP4_LPCM_FORMAT_FLAG_NON_MIXABLE     (1 << 6)
+
 /* MP4 Audio type utilities following common usage */
 #define MP4_IS_MP3_AUDIO_TYPE(type) \
     ((type) == MP4_MPEG1_AUDIO_TYPE || (type) == MP4_MPEG2_AUDIO_TYPE)
