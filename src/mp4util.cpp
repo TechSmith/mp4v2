@@ -40,7 +40,7 @@ bool MP4NameFirstMatches(const char* s1, const char* s2)
         if (*s2 == '\0' || strchr("[.", *s2)) {
             break;
         }
-        if (tolower(*s1) != tolower(*s2)) {
+        if (tolower((unsigned char)*s1) != tolower((unsigned char)*s2)) {
             return false;
         }
         s1++;
