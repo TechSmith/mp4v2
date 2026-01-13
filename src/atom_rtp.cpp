@@ -127,10 +127,19 @@ void MP4RtpAtom::ReadHntiType()
     uint64_t size = GetEnd() - m_File.GetPosition();
     char* data = (char*)MP4Malloc(size + 1);
     ASSERT(data != NULL);
-    m_File.ReadBytes((uint8_t*)data, size);
-    data[size] = '\0';
-    ((MP4StringProperty*)m_pProperties[1])->SetValue(data);
-    MP4Free(data);
+    try
+    {
+       m_File.ReadBytes( (uint8_t*)data, size );
+       data[size] = '\0';
+       ( (MP4StringProperty*)m_pProperties[1] )->SetValue( data );
+       MP4Free( data );
+    }
+    catch (Exception*)
+    {
+       // free memory and rethrow
+       MP4Free( data );
+       throw;
+    }
 }
 
 void MP4RtpAtom::Write()
