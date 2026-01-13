@@ -1392,6 +1392,10 @@ bool MP4Track::IsSyncSample(MP4SampleId sampleId)
     }
 
     uint32_t numStss = m_pStssCountProperty->GetValue();
+    if (numStss == 0)
+    {
+       return false;
+    }
     uint32_t stssLIndex = 0;
     uint32_t stssRIndex = numStss - 1;
 
