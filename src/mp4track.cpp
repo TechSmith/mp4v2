@@ -995,6 +995,8 @@ uint64_t MP4Track::GetSampleFileOffset(MP4SampleId sampleId)
 
     uint32_t samplesPerChunk =
         m_pStscSamplesPerChunkProperty->GetValue(stscIndex);
+    if ( samplesPerChunk == 0u )
+       throw new Exception( "Invalid number of samples in stsc entry", __FILE__, __LINE__, __FUNCTION__ );
 
     // chunkId tells which is the absolute chunk number that this sample
     // is stored in.
