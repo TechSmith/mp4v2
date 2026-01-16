@@ -344,17 +344,29 @@ char* MP4File::ReadString()
     uint32_t alloced = 64;
     char* data = (char*)MP4Malloc(alloced);
 
-    do {
-        if (length == alloced) {
-            data = (char*)MP4Realloc(data, alloced * 2);
-            if (data == NULL) return NULL;
-            alloced *= 2;
-        }
-        ReadBytes((uint8_t*)&data[length], 1);
-        length++;
-    } while (data[length - 1] != 0);
+    try
+    {
+       do {
+          if ( length == alloced )
+          {
+             data = (char*)MP4Realloc( data, alloced * 2 );
+             if ( data == NULL )
+                return NULL;
+             alloced *= 2;
+          }
+          ReadBytes( (uint8_t*)&data[length], 1 );
+          length++;
+       }
+       while ( data[length - 1] != 0 );
 
-    data = (char*)MP4Realloc(data, length);
+       data = (char*)MP4Realloc( data, length );
+    }
+    catch (Exception*)
+    {
+       // free memory and retrhow
+       MP4Free( data );
+       throw;
+    }
     return data;
 }
 
@@ -368,55 +380,78 @@ void MP4File::WriteString(char* string)
     }
 }
 
-char* MP4File::ReadCountedString(uint8_t charSize, bool allowExpandedCount, uint8_t fixedLength)
+char* MP4File::ReadCountedString( uint8_t charSize, bool allowExpandedCount, uint8_t fixedLength )
 {
-    uint32_t charLength;
-    if (allowExpandedCount) {
-        uint8_t b;
-        uint32_t ix = 0;
-        charLength = 0;
-        do {
-            b = ReadUInt8();
-            charLength += b;
-            ix++;
-            if (ix > 25)
-                throw new PlatformException("Counted string too long 25 * 255",ERANGE,
-                                            __FILE__, __LINE__, __FUNCTION__);
-        } while (b == 255);
-    } else {
-        charLength = ReadUInt8();
-    }
-    
-    if (fixedLength && (charLength > (uint8_t)(fixedLength - 1))) {
-        /*
-         * The counted length of this string is greater than the
-         * maxiumum fixed length, so truncate the string to the
-         * maximum fixed length amount (take 1 byte away from the
-         * fixedlength since we've already sacrificed one byte for
-         * reading the counted length, and there has been a bug where
-         * a non counted string has been used in the place of a
-         * counted string).
-         */  
-        WARNING( charLength > (uint8_t)( fixedLength - 1 ) );
-        charLength = fixedLength - 1U;
-    }
+   uint32_t charLength;
+   if ( allowExpandedCount )
+   {
+      uint8_t b;
+      uint32_t ix = 0;
+      charLength = 0;
+      do {
+         b = ReadUInt8();
+         charLength += b;
+         ix++;
+         if ( ix > 25 )
+            throw new PlatformException( "Counted string too long 25 * 255", ERANGE, __FILE__, __LINE__, __FUNCTION__ );
+      }
+      while ( b == 255 );
+   }
+   else
+   {
+      charLength = ReadUInt8();
+   }
 
-    uint32_t byteLength = charLength * charSize;
-    char* data = (char*)MP4Malloc(byteLength + 1);
-    if (byteLength > 0) {
-        ReadBytes((uint8_t*)data, byteLength);
-    }
-    data[byteLength] = '\0';
+   if ( fixedLength && ( charLength > (uint8_t)( fixedLength - 1 ) ) )
+   {
+      /*
+       * The counted length of this string is greater than the
+       * maxiumum fixed length, so truncate the string to the
+       * maximum fixed length amount (take 1 byte away from the
+       * fixedlength since we've already sacrificed one byte for
+       * reading the counted length, and there has been a bug where
+       * a non counted string has been used in the place of a
+       * counted string).
+       */
+      WARNING( charLength > (uint8_t)( fixedLength - 1 ) );
+      charLength = fixedLength - 1U;
+   }
 
-    // read padding
-    if (fixedLength) {
-        const uint8_t padsize = fixedLength - byteLength -1U;
-        if( padsize ) {
-            uint8_t* padbuf = (uint8_t*)malloc( padsize );
-            ReadBytes( padbuf, padsize );
-            free( padbuf );
-        }
-    }
+   uint32_t byteLength = charLength * charSize;
+   char* data = (char*)MP4Malloc( byteLength + 1 );
+   try
+   {
+      if ( byteLength > 0 )
+      {
+         ReadBytes( (uint8_t*)data, byteLength );
+      }
+      data[byteLength] = '\0';
+
+      // read padding
+      if ( fixedLength )
+      {
+         const uint8_t padsize = fixedLength - byteLength - 1U;
+         if ( padsize )
+         {
+            uint8_t* padbuf = (uint8_t*)MP4Malloc( padsize );
+            try
+            {
+               ReadBytes( padbuf, padsize );
+               MP4Free( padbuf );
+            }
+            catch ( Exception* )
+            {
+               MP4Free( padbuf );
+               throw;
+            }
+         }
+      }
+   }
+   catch (Exception*)
+   {
+      MP4Free( data );
+      throw;
+   }
 
     return data;
 }
