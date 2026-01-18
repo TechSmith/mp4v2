@@ -799,6 +799,21 @@ void MP4File::FindFloatProperty(const char* name,
     }
 }
 
+void MP4File::FindDoubleProperty(const char* name,
+                                 MP4Property** ppProperty, uint32_t* pIndex)
+{
+    if (!FindProperty(name, ppProperty, pIndex)) {
+        ostringstream msg;
+        msg << "no such property - " << name;
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
+    }
+    if ((*ppProperty)->GetType() != Float64Property) {
+        ostringstream msg;
+        msg << "type mismatch - property " << name << " type " << (*ppProperty)->GetType();
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
+    }
+}
+
 float MP4File::GetFloatProperty(const char* name)
 {
     MP4Property* pProperty;
@@ -807,6 +822,16 @@ float MP4File::GetFloatProperty(const char* name)
     FindFloatProperty(name, &pProperty, &index);
 
     return ((MP4Float32Property*)pProperty)->GetValue(index);
+}
+
+double MP4File::GetDoubleProperty(const char* name)
+{
+    MP4Property* pProperty;
+    uint32_t index;
+
+    FindDoubleProperty(name, &pProperty, &index);
+
+    return ((MP4Float64Property*)pProperty)->GetValue(index);
 }
 
 void MP4File::SetFloatProperty(const char* name, float value)
@@ -819,6 +844,18 @@ void MP4File::SetFloatProperty(const char* name, float value)
     FindFloatProperty(name, &pProperty, &index);
 
     ((MP4Float32Property*)pProperty)->SetValue(value, index);
+}
+
+void MP4File::SetDoubleProperty(const char* name, double value)
+{
+    ProtectWriteOperation(__FILE__, __LINE__, __FUNCTION__);
+
+    MP4Property* pProperty;
+    uint32_t index;
+
+    FindDoubleProperty(name, &pProperty, &index);
+
+    ((MP4Float64Property*)pProperty)->SetValue(value, index);
 }
 
 void MP4File::FindStringProperty(const char* name,
@@ -1410,6 +1447,54 @@ MP4TrackId MP4File::AddAudioTrack(
 
     m_pTracks[FindTrackIndex(trackId)]->
     SetFixedSampleDuration(sampleDuration);
+
+    return trackId;
+}
+
+MP4TrackId MP4File::AddLPCMAudioTrack(
+    uint32_t timeScale,
+    uint32_t channels,
+    uint32_t bitsPerChannel,
+    uint32_t formatFlags)
+{
+    MP4TrackId trackId = AddTrack(MP4_AUDIO_TRACK_TYPE, timeScale);
+
+    AddTrackToOd(trackId);
+
+    SetTrackFloatProperty(trackId, "tkhd.volume", 1.0);
+
+    (void)InsertChildAtom(MakeTrackName(trackId, "mdia.minf"), "smhd", 0);
+
+    (void)AddChildAtom(MakeTrackName(trackId, "mdia.minf.stbl.stsd"), "lpcm");
+
+    AddDescendantAtoms(MakeTrackName(trackId, NULL), "udta.name");
+
+    // stsd is a unique beast in that it has a count of the number
+    // of child atoms that needs to be incremented after we add the lpcm atom
+    MP4Integer32Property* pStsdCountProperty;
+    FindIntegerProperty(
+        MakeTrackName(trackId, "mdia.minf.stbl.stsd.entryCount"),
+        (MP4Property**)&pStsdCountProperty);
+    pStsdCountProperty->IncrementValue();
+
+    /* LPCM properties  */
+    SetTrackDoubleProperty(trackId,
+                           "mdia.minf.stbl.stsd.lpcm.timeScale", timeScale);
+
+    SetTrackIntegerProperty(trackId,
+                            "mdia.minf.stbl.stsd.lpcm.channels", channels);
+
+    SetTrackIntegerProperty(trackId,
+                            "mdia.minf.stbl.stsd.lpcm.constBitsPerChannel", bitsPerChannel);
+
+    SetTrackIntegerProperty(trackId,
+                            "mdia.minf.stbl.stsd.lpcm.formatSpecificFlags", formatFlags);
+
+    SetTrackIntegerProperty(trackId,
+                            "mdia.minf.stbl.stsd.lpcm.constBytesPerAudioPacket", (bitsPerChannel / 8) * channels);
+    /********************/
+
+    m_pTracks[FindTrackIndex(trackId)]->SetFixedSampleDuration(1);
 
     return trackId;
 }
@@ -3172,6 +3257,12 @@ void MP4File::SetTrackFloatProperty(MP4TrackId trackId, const char* name,
                                     float value)
 {
     SetFloatProperty(MakeTrackName(trackId, name), value);
+}
+
+void MP4File::SetTrackDoubleProperty(MP4TrackId trackId, const char* name,
+                                     double value)
+{
+    SetDoubleProperty(MakeTrackName(trackId, name), value);
 }
 
 const char* MP4File::GetTrackStringProperty(MP4TrackId trackId, const char* name)
