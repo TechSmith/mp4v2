@@ -155,7 +155,10 @@ MP4Atom* MP4Atom::ReadAtom(MP4File& file, MP4Atom* pParentAtom)
     log.verbose1f("\"%s\": type = \"%s\" data-size = %" PRIu64 " (0x%" PRIx64 ") hdr %u",
                   file.GetFilename().c_str(), type, dataSize, dataSize, hdrSize);
 
-    if (pos + hdrSize + dataSize > pParentAtom->GetEnd()) {
+    // |dataSize + hdrSize| is what |dataSize| was when it was read.
+    // Rather than adding |pos| to it (which can overflow), compare it against how much is left in the file,
+    // otherwise the |SetEnd()| call below can jump backwards and result in an infinite loop of parsing the same atom.
+    if (dataSize + hdrSize > pParentAtom->GetEnd() - pos) {
         log.errorf("%s: \"%s\": invalid atom size, extends outside parent atom - skipping to end of \"%s\" \"%s\" %" PRIu64 " vs %" PRIu64,
                    __FUNCTION__, file.GetFilename().c_str(), pParentAtom->GetType(), type,
                    pos + hdrSize + dataSize,
