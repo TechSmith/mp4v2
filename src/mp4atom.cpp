@@ -173,32 +173,32 @@ MP4Atom* MP4Atom::ReadAtom(MP4File& file, MP4Atom* pParentAtom)
     }
 
     MP4Atom* pAtom = CreateAtom(file, pParentAtom, type);
-    //    pAtom->SetFile(pFile);
-    pAtom->SetStart(pos);
-    pAtom->SetEnd(pos + hdrSize + dataSize);
-    pAtom->SetLargesizeMode(largesizeMode);
-    pAtom->SetSize(dataSize);
-    if (ATOMID(type) == ATOMID("uuid")) {
-        pAtom->SetExtendedType(extendedType);
-    }
-    if (pAtom->IsUnknownType()) {
-        if (!IsReasonableType(pAtom->GetType())) {
-            log.warningf("%s: \"%s\": atom type %s is suspect", __FUNCTION__, file.GetFilename().c_str(),
-                         pAtom->GetType());
-        } else {
-            log.verbose1f("\"%s\": Info: atom type %s is unknown", file.GetFilename().c_str(),
-                          pAtom->GetType());
-        }
-
-        if (dataSize > 0) {
-            pAtom->AddProperty(
-                new MP4BytesProperty(*pAtom, "data", dataSize));
-        }
-    }
-
-    pAtom->SetParentAtom(pParentAtom);
-
 	try {
+        //    pAtom->SetFile(pFile);
+        pAtom->SetStart(pos);
+        pAtom->SetEnd(pos + hdrSize + dataSize);
+        pAtom->SetLargesizeMode(largesizeMode);
+        pAtom->SetSize(dataSize);
+        if (ATOMID(type) == ATOMID("uuid")) {
+            pAtom->SetExtendedType(extendedType);
+        }
+        if (pAtom->IsUnknownType()) {
+            if (!IsReasonableType(pAtom->GetType())) {
+                log.warningf("%s: \"%s\": atom type %s is suspect", __FUNCTION__, file.GetFilename().c_str(),
+                            pAtom->GetType());
+            } else {
+                log.verbose1f("\"%s\": Info: atom type %s is unknown", file.GetFilename().c_str(),
+                            pAtom->GetType());
+            }
+
+            if (dataSize > 0) {
+                pAtom->AddProperty(
+                    new MP4BytesProperty(*pAtom, "data", dataSize));
+            }
+        }
+
+        pAtom->SetParentAtom(pParentAtom);
+
 		pAtom->Read();
 	}
 	catch (Exception* x) {
