@@ -420,7 +420,7 @@ Tags::fetchGenre( const CodeItemMap& cim, uint16_t& cpp, const uint16_t*& c )
         return;
 
     MP4ItmfData& data = f->second->dataList.elements[0];
-    if( NULL == data.value )
+    if( NULL == data.value || data.valueSize < 2 )
         return;
 
     cpp = (uint16_t(data.value[0]) <<  8)
@@ -444,7 +444,7 @@ Tags::fetchDisk( const CodeItemMap& cim, MP4TagDisk& cpp, const MP4TagDisk*& c )
 
     MP4ItmfData& data = f->second->dataList.elements[0];
 
-    if( NULL == data.value )
+    if( NULL == data.value || data.valueSize < 6 )
         return;
 
     cpp.index = (uint16_t(data.value[2]) <<  8)
@@ -471,7 +471,7 @@ Tags::fetchTrack( const CodeItemMap& cim, MP4TagTrack& cpp, const MP4TagTrack*& 
 
     MP4ItmfData& data = f->second->dataList.elements[0];
 
-    if( NULL == data.value )
+    if( NULL == data.value || data.valueSize < 6 )
         return;
 
     cpp.index = (uint16_t(data.value[2]) <<  8)
@@ -517,7 +517,7 @@ Tags::fetchInteger( const CodeItemMap& cim, const string& code, uint16_t& cpp, c
 
     MP4ItmfData& data = f->second->dataList.elements[0];
 
-    if( NULL == data.value )
+    if( NULL == data.value || data.valueSize < 2 )
         return;
 
     cpp = (uint16_t(data.value[0]) <<  8)
@@ -540,7 +540,7 @@ Tags::fetchInteger( const CodeItemMap& cim, const string& code, uint32_t& cpp, c
 
     MP4ItmfData& data = f->second->dataList.elements[0];
 
-    if( NULL == data.value )
+    if( NULL == data.value || data.valueSize < 4 )
         return;
 
     cpp = (uint32_t(data.value[0]) << 24)
@@ -565,7 +565,7 @@ Tags::fetchInteger( const CodeItemMap& cim, const string& code, uint64_t& cpp, c
 
     MP4ItmfData& data = f->second->dataList.elements[0];
 
-    if( NULL == data.value )
+    if( NULL == data.value || data.valueSize < 8 )
         return;
 
     cpp = (uint64_t(data.value[0]) << 56)
