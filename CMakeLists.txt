@@ -3,6 +3,13 @@ project(mp4v2_2_0_0)
 
 set(CMAKE_CXX_STANDARD 11)
 
+option(MP4V2_BUILD_SHARED "Build mp4v2 as a shared library" ON)
+if(MP4V2_BUILD_SHARED)
+   set(SHARED_OR_STATIC SHARED)
+else()
+   set(SHARED_OR_STATIC STATIC)
+endif()
+
 set(HEADER_FILES
         include/mp4v2/chapter.h
         include/mp4v2/file.h
@@ -198,14 +205,14 @@ set(SOURCE_FILES
         src/rtphint.cpp
         src/text.cpp)
 
-add_library(mp4v2 SHARED ${HEADER_FILES} ${SOURCE_FILES})
-# Just expose a static lib for now
-#add_library(mp4v2 STATIC ${HEADER_FILES} ${SOURCE_FILES})
+add_library(mp4v2 ${SHARED_OR_STATIC} ${HEADER_FILES} ${SOURCE_FILES})
 
 target_include_directories(mp4v2 PUBLIC include)
 target_include_directories(mp4v2 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-#target_compile_definitions(mp4v2 PUBLIC MP4V2_USE_STATIC_LIB)
+if(NOT MP4V2_BUILD_SHARED)
+   target_compile_definitions(mp4v2 PUBLIC MP4V2_USE_STATIC_LIB)
+endif()
 target_compile_definitions(mp4v2 PRIVATE MP4V2_EXPORTS)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
    target_compile_options(mp4v2 PRIVATE -Wno-deprecated-declarations -Wno-invalid-source-encoding -Wno-tautological-pointer-compare)
