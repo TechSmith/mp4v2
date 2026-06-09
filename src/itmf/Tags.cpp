@@ -471,7 +471,7 @@ Tags::fetchTrack( const CodeItemMap& cim, MP4TagTrack& cpp, const MP4TagTrack*& 
 
     MP4ItmfData& data = f->second->dataList.elements[0];
 
-    if( NULL == data.value )
+    if( NULL == data.value || data.valueSize < 6 )
         return;
 
     cpp.index = (uint16_t(data.value[2]) <<  8)
