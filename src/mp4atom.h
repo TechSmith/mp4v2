@@ -181,6 +181,13 @@ public:
     uint32_t GetFlags();
     void SetFlags(uint32_t flags);
 
+    // Turn this atom into a raw pass-through container holding exactly the
+    // given bytes as its payload. On write it emits "[size][type][data]",
+    // reproducing the source atom byte-for-byte. Used to faithfully clone
+    // atoms (e.g. QuickTime sample-description entries) whose structured
+    // rebuild would otherwise be lossy.
+    void SetRawBytes(const uint8_t* data, uint32_t size);
+
     uint8_t GetDepth();
 
     void Skip();

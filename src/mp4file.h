@@ -829,6 +829,16 @@ public:
 
     MP4Atom* FindAtom(const char* name);
 
+    // Replace the (parameter-rebuilt) sample-description entry of dstTrackId
+    // with a byte-for-byte copy of srcTrackId's entry from srcFile. This
+    // preserves codec/container specifics that MP4CloneTrack drops, e.g. a
+    // bare QuickTime "tsc2" entry (no esds) or the "mp4a -> wave -> esds"
+    // wrapper used by QuickTime AAC.
+    void CloneSampleDescriptionVerbatim(
+        MP4File* srcFile,
+        MP4TrackId srcTrackId,
+        MP4TrackId dstTrackId);
+
     MP4Atom* AddChildAtom(
         const char* parentName,
         const char* childName);

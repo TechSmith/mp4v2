@@ -203,7 +203,7 @@ MP4Atom* MP4Atom::ReadAtom(MP4File& file, MP4Atom* pParentAtom)
 	}
 	catch (Exception* x) {
 		// delete atom and rethrow so we don't leak memory.
-		delete pAtom;	
+		delete pAtom;
 		throw x;
 	}
 
@@ -267,7 +267,7 @@ MP4Atom* MP4Atom::FindAtom(const char* name)
     }
 
     if (!IsRootAtom()) {
-        log.verbose1f("\"%s\": FindAtom: matched %s", 
+        log.verbose1f("\"%s\": FindAtom: matched %s",
                       GetFile().GetFilename().c_str(), name);
 
         name = MP4NameAfterFirst(name);
@@ -290,7 +290,7 @@ bool MP4Atom::FindProperty(const char *name,
     }
 
     if (!IsRootAtom()) {
-        log.verbose1f("\"%s\": FindProperty: matched %s", 
+        log.verbose1f("\"%s\": FindProperty: matched %s",
                       GetFile().GetFilename().c_str(), name);
 
         name = MP4NameAfterFirst(name);
@@ -375,7 +375,7 @@ bool MP4Atom::FindContainedProperty(const char *name,
         }
     }
 
-    log.verbose1f("\"%s\": FindProperty: no match for %s", 
+    log.verbose1f("\"%s\": FindProperty: no match for %s",
                   GetFile().GetFilename().c_str(), name);
     return false;
 }
@@ -435,13 +435,13 @@ void MP4Atom::ReadChildAtoms()
                     m_end - position == sizeof(uint32_t)) {
                 uint32_t mbz = m_File.ReadUInt32();
                 if (mbz != 0) {
-                    log.warningf("%s: \"%s\": In udta atom, end value is not zero %x", __FUNCTION__, 
+                    log.warningf("%s: \"%s\": In udta atom, end value is not zero %x", __FUNCTION__,
                                  m_File.GetFilename().c_str(), mbz);
                 }
                 continue;
             }
             // otherwise, output a warning, but don't care
-            log.warningf("%s: \"%s\": In %s atom, extra %" PRId64 " bytes at end of atom", __FUNCTION__, 
+            log.warningf("%s: \"%s\": In %s atom, extra %" PRId64 " bytes at end of atom", __FUNCTION__,
                          m_File.GetFilename().c_str(), m_type, (m_end - position));
             for (uint64_t ix = 0; ix < m_end - position; ix++) {
                 (void)m_File.ReadUInt8();
@@ -650,6 +650,30 @@ void MP4Atom::SetFlags(uint32_t flags)
         return;
     }
     ((MP4Integer24Property*)m_pProperties[1])->SetValue(flags);
+}
+
+void MP4Atom::SetRawBytes(const uint8_t* data, uint32_t size)
+{
+    // Drop any existing structure so the atom serializes as exactly the
+    // supplied payload bytes (header is emitted by BeginWrite/FinishWrite).
+    for (uint32_t i = 0; i < m_pProperties.Size(); i++) {
+        delete m_pProperties[i];
+    }
+    m_pProperties.Resize(0);
+    for (uint32_t i = 0; i < m_pChildAtomInfos.Size(); i++) {
+        delete m_pChildAtomInfos[i];
+    }
+    m_pChildAtomInfos.Resize(0);
+    for (uint32_t i = 0; i < m_pChildAtoms.Size(); i++) {
+        delete m_pChildAtoms[i];
+    }
+    m_pChildAtoms.Resize(0);
+
+    m_unknownType = true;
+
+    MP4BytesProperty* pData = new MP4BytesProperty(*this, "data", size);
+    pData->SetValue(data, size);
+    AddProperty(pData);
 }
 
 void MP4Atom::Dump(uint8_t indent, bool dumpImplicits)
@@ -954,7 +978,7 @@ MP4Atom::factory( MP4File &file, MP4Atom* parent, const char* type )
                 return new MP4PaspAtom(file);
             if( ATOMID(type) == ATOMID("png ") )
                 return new MP4PNGAtom(file);
-          
+
             break;
 
         case 'r':
@@ -1042,7 +1066,7 @@ MP4Atom::factory( MP4File &file, MP4Atom* parent, const char* type )
     }
 
     // default to MP4StandardAtom implementation
-    return new MP4StandardAtom( file, type ); 
+    return new MP4StandardAtom( file, type );
 }
 
 ///////////////////////////////////////////////////////////////////////////////

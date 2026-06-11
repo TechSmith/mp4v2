@@ -2014,7 +2014,7 @@ void MP4File::AddH264PictureParameterSet (MP4TrackId trackId,
                 uint32_t seqlen;
                 pUnit->GetValue(&seq, &seqlen, index);
                 if (memcmp(seq, pPict, pictLen) == 0) {
-                    log.verbose1f("\"%s\": picture matches %d", 
+                    log.verbose1f("\"%s\": picture matches %d",
                                   GetFilename().c_str(), index);
                     free(seq);
                     return;
@@ -3071,7 +3071,7 @@ void MP4File::WriteSample(
 
 void MP4File::WriteSampleDependency(
     MP4TrackId     trackId,
-    const uint8_t* pBytes, 
+    const uint8_t* pBytes,
     uint32_t       numBytes,
     MP4Duration    duration,
     MP4Duration    renderingOffset,
@@ -3243,7 +3243,7 @@ bool MP4File::SetTrackLanguage( MP4TrackId trackId, const char* code )
     return true;
 }
 
-    
+
 bool MP4File::GetTrackName( MP4TrackId trackId, char** name )
 {
     unsigned char *val = NULL;
@@ -3286,7 +3286,7 @@ bool MP4File::SetTrackName( MP4TrackId trackId, const char* name )
     {
         if (!AddDescendantAtoms(MakeTrackName(trackId, NULL), "udta.name"))
             return false;
-        
+
         pMetaAtom = m_pRootAtom->FindAtom(atomstring);
         if (pMetaAtom == NULL) return false;
     }
@@ -4323,6 +4323,68 @@ void MP4File::CopySample(
     free( pBytes );
 }
 
+void MP4File::CloneSampleDescriptionVerbatim(
+    MP4File*    srcFile,
+    MP4TrackId  srcTrackId,
+    MP4TrackId  dstTrackId )
+{
+    if ( srcFile == NULL ) {
+        return;
+    }
+
+    MP4Atom* pSrcStsd =
+        srcFile->FindAtom( srcFile->MakeTrackName( srcTrackId, "mdia.minf.stbl.stsd" ) );
+    MP4Atom* pDstStsd =
+        FindAtom( MakeTrackName( dstTrackId, "mdia.minf.stbl.stsd" ) );
+
+    if ( pSrcStsd == NULL || pDstStsd == NULL ) {
+        return;
+    }
+    if ( pSrcStsd->GetNumberOfChildAtoms() == 0 ) {
+        return;
+    }
+
+    MP4Atom* pSrcEntry = pSrcStsd->GetChildAtom( 0 );
+
+    const uint64_t start   = pSrcEntry->GetStart();
+    const uint64_t end     = pSrcEntry->GetEnd();
+    const uint64_t payload = pSrcEntry->GetSize();   // data portion (no header)
+
+    if ( payload == 0 || end <= start || payload > 0xFFFFFFFF ) {
+        return;
+    }
+
+    const uint64_t hdrSize = ( end - start ) - payload;
+
+    // Read the source entry's payload bytes verbatim.
+    uint8_t* buf = (uint8_t*)MP4Malloc( (uint32_t)payload );
+    const uint64_t savedPos = srcFile->GetPosition();
+    srcFile->SetPosition( start + hdrSize );
+    srcFile->ReadBytes( buf, (uint32_t)payload );
+    srcFile->SetPosition( savedPos );
+
+    // Drop the synthesized destination sample-description entries.
+    while ( pDstStsd->GetNumberOfChildAtoms() > 0 ) {
+        MP4Atom* pChild = pDstStsd->GetChildAtom( 0 );
+        pDstStsd->DeleteChildAtom( pChild );
+        delete pChild;
+    }
+
+    // Insert a raw pass-through atom of the same type holding the payload.
+    MP4Atom* pNewEntry = new MP4Atom( *this, pSrcEntry->GetType() );
+    pNewEntry->SetRawBytes( buf, (uint32_t)payload );
+    pDstStsd->AddChildAtom( pNewEntry );
+
+    MP4Free( buf );
+
+    // Keep the stsd entry count consistent (single entry).
+    MP4Integer32Property* pEntryCount = NULL;
+    if ( pDstStsd->FindProperty( "entryCount", (MP4Property**)&pEntryCount ) &&
+         pEntryCount != NULL ) {
+        pEntryCount->SetValue( 1 );
+    }
+}
+
 void MP4File::EncAndCopySample(
     MP4File*      srcFile,
     MP4TrackId    srcTrackId,
@@ -4374,7 +4436,7 @@ void MP4File::EncAndCopySample(
 
     //if( ismacrypEncryptSampleAddHeader( ismaCryptSId, numBytes, pBytes, &encSampleLength, &encSampleData ) != 0)
     if( encfcnp( encfcnparam1, numBytes, pBytes, &encSampleLength, &encSampleData ) != 0 )
-        log.errorf("%s(%s,%s) Can't encrypt the sample and add its header %u", 
+        log.errorf("%s(%s,%s) Can't encrypt the sample and add its header %u",
                    __FUNCTION__, srcFile->GetFilename().c_str(), dstFile->GetFilename().c_str(), srcSampleId );
 
     if( hasDependencyFlags ) {

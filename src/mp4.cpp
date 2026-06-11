@@ -1735,6 +1735,18 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
                 }
                 free(pictheader);
                 free(pictheadersize);
+            } else if (ATOMID(media_data_name) == ATOMID("tsc2")) {
+                // TechSmith Screen Codec 2. Its sample-description atom has the
+                // same layout as mp4v (width/height/esds), so we can create the
+                // destination track here and let the common ES-configuration
+                // copy below carry over the decoder config.
+                dstTrackId = MP4AddTSC2VideoTrack(
+                                 dstFile,
+                                 MP4GetTrackTimeScale(srcFile, srcTrackId),
+                                 MP4GetTrackFixedSampleDuration(srcFile,
+                                                                srcTrackId),
+                                 MP4GetTrackVideoWidth(srcFile, srcTrackId),
+                                 MP4GetTrackVideoHeight(srcFile, srcTrackId));
             } else
                 return dstTrackId;
         } else if (MP4_IS_AUDIO_TRACK_TYPE(trackType)) {
@@ -2071,6 +2083,16 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
                 MP4DeleteTrack(dstFile, dstTrackId);
                 return MP4_INVALID_TRACK_ID;
             }
+        }
+
+        // Faithfully reproduce the source sample-description entry so that
+        // codec/container specifics dropped by MP4CloneTrack's parameter-based
+        // rebuild are preserved (e.g. bare QuickTime "tsc2" without esds, or
+        // the "mp4a -> wave -> esds" wrapper). Done after sample copying since
+        // the write path does not depend on the sample-description structure.
+        if (MP4_IS_VALID_FILE_HANDLE(dstFile) && dstFile != srcFile) {
+            ((MP4File*)dstFile)->CloneSampleDescriptionVerbatim(
+                (MP4File*)srcFile, srcTrackId, dstTrackId);
         }
 
         return dstTrackId;
@@ -2559,7 +2581,7 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         }
         return false;
     }
-   
+
     void MP4FreeH264SeqPictHeaders(uint8_t** pSeqHeaders,
                                    uint32_t* pSeqHeaderSize,
                                    uint8_t** pPictHeader,
@@ -2833,7 +2855,7 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
        if (pAtomData)
           free(pAtomData);
     }
-   
+
     bool MP4GetTrackIntegerProperty (
         MP4FileHandle hFile, MP4TrackId trackId,
         const char* propName,
@@ -4583,7 +4605,7 @@ bool MP4SetTrackLanguage(
 
     try {
         return ((MP4File*)hFile)->SetTrackLanguage( trackId, code );
-    }   
+    }
     catch( Exception* x ) {
         mp4v2::impl::log.errorf(*x);
         delete x;
@@ -4624,7 +4646,7 @@ void MP4FreeTrackName(char * pTrackName)
    if (pTrackName)
       free(pTrackName);
 }
-   
+
 ///////////////////////////////////////////////////////////////////////////////
 
 bool MP4SetTrackName(
@@ -4653,7 +4675,7 @@ bool MP4SetTrackName(
 
 bool MP4GetTrackDurationPerChunk(
     MP4FileHandle hFile,
-    MP4TrackId    trackId, 
+    MP4TrackId    trackId,
     MP4Duration*  duration )
 {
     if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
