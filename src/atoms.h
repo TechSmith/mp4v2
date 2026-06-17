@@ -178,6 +178,16 @@ private:
     MP4AvcCAtom &operator= ( const MP4AvcCAtom &src );
 };
 
+class MP4Hvc1Atom : public MP4Atom {
+public:
+    MP4Hvc1Atom(MP4File &file);
+    void Generate();
+private:
+    MP4Hvc1Atom();
+    MP4Hvc1Atom( const MP4Hvc1Atom &src );
+    MP4Hvc1Atom &operator= ( const MP4Hvc1Atom &src );
+};
+
 
 class MP4D263Atom : public MP4Atom {
 public:

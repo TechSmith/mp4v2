@@ -328,12 +328,34 @@ bool MP4Optimize(
  *      the library.
  *      On error, #MP4_INVALID_FILE_HANDLE.
  */
+MP4V2_EXPORT
+MP4FileHandle MP4Read(
+    const char* fileName );
+
+/** Read an existing mp4 file.
+ *
+ *  MP4Read is the first call that should be used when you want to just
+ *  read an existing mp4 file. It is equivalent to opening a file for
+ *  reading, but in addition the mp4 file is parsed and the control
+ *  information is loaded into memory. Note that actual track samples are not
+ *  read into memory until MP4ReadSample() is called.
+ *
+ *  @param fileName pathname of the file to be read.
+ *      On Windows, this should be a UTF-8 encoded string.
+ *      On other platforms, it should be an 8-bit encoding that is
+ *      appropriate for the platform, locale, file system, etc.
+ *      (prefer to use UTF-8 when possible).
+(
+ *  @return On success a handle of the file for use in subsequent calls to
+ *      the library.
+ *      On error, #MP4_INVALID_FILE_HANDLE.
+ */
 typedef bool( *ShouldParseAtomCallback )( uint32_t );
 
 MP4V2_EXPORT
-MP4FileHandle MP4Read(
+MP4FileHandle MP4Read2(
     const char* fileName,
-    ShouldParseAtomCallback cb = nullptr );
+    ShouldParseAtomCallback cb DEFAULT(NULL) );
 
 /** Read an existing mp4 file.
  *

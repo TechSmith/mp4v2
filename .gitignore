@@ -117,4 +117,9 @@ DerivedData
 .DS_Store
 xcuserdata
 
-
+# autotools
+GNUmakefile.in
+aclocal.m4
+autoaux/
+autom4te.cache/
+configure

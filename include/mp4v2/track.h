@@ -124,6 +124,36 @@ MP4TrackId MP4AddAudioTrack(
     MP4Duration   sampleDuration,
     uint8_t       audioType DEFAULT(MP4_MPEG4_AUDIO_TYPE) );
 
+/** Add LPCM audio track to mp4 file.
+ *
+ *  MP4AddLPCMAudioTrack adds an audio track to the mp4 file. MP4WriteSample()
+ *  can then be used to add the desired audio samples.
+ *
+ *  It is recommended that the time scale be set to the sampling frequency
+ *  (eg. 44100 Hz) of the audio so as to preserve the timing information
+ *  accurately.
+ *
+ *  @param hFile handle of file for operation.
+ *  @param timeScale the time scale in samples per second of the track.
+ *  @param channels the number of audio channels.
+ *  @param bitsPerChannel the audio bits per channels.
+ *      Integer property: mdia.minf.stbl.stsd.lpcm.constBitsPerChannel
+ *  @param formatFlags the audio bits per channels.
+ *      See MP4_LPCM_FORMAT_FLAG_* options.
+ *      Integer property: mdia.minf.stbl.stsd.lpcm.formatSpecificFlags
+ *
+ *  @return On success, the track-id of the new track.
+ *      On error, #MP4_INVALID_TRACK_ID.
+ */
+MP4V2_EXPORT
+MP4TrackId MP4AddLPCMAudioTrack(
+    MP4FileHandle hFile,
+    uint32_t timeScale,
+    uint32_t channels,
+    uint32_t bitsPerChannel,
+    uint32_t formatFlags DEFAULT((MP4_LPCM_FORMAT_FLAG_SIGNED_INTEGER |
+                                  MP4_LPCM_FORMAT_FLAG_PACKED)) );
+
 /** Add ulaw track to mp4 file.
  *
  *  MP4AddULawAudioTrack adds a ulaw track to the mp4 file. MP4WriteSample()

@@ -39,6 +39,7 @@ enum MP4PropertyType {
     Integer32Property,
     Integer64Property,
     Float32Property,
+    Float64Property,
     StringProperty,
     BytesProperty,
     TableProperty,
@@ -307,6 +308,60 @@ private:
     MP4Float32Property();
     MP4Float32Property ( const MP4Float32Property &src );
     MP4Float32Property &operator= ( const MP4Float32Property &src );
+};
+
+class MP4Float64Property : public MP4Property {
+public:
+    MP4Float64Property(MP4Atom& parentAtom, const char* name)
+            : MP4Property(parentAtom, name) {
+        SetCount(1);
+        m_values[0] = 0.0;
+    }
+
+    MP4PropertyType GetType() {
+        return Float64Property;
+    }
+
+    uint32_t GetCount() {
+        return m_values.Size();
+    }
+    void SetCount(uint32_t count) {
+        m_values.Resize(count);
+    }
+
+    double GetValue(uint32_t index = 0) {
+        return m_values[index];
+    }
+
+    void SetValue(double value, uint32_t index = 0) {
+        if (m_readOnly) {
+            ostringstream msg;
+            msg << "property is read-only: " << m_name;
+            throw new PlatformException(msg.str().c_str(), EACCES, __FILE__, __LINE__, __FUNCTION__);
+        }
+        m_values[index] = value;
+    }
+
+    void AddValue(double value) {
+        m_values.Add(value);
+    }
+
+    void InsertValue(double value, uint32_t index) {
+        m_values.Insert(value, index);
+    }
+
+    void Read(MP4File& file, uint32_t index = 0);
+    void Write(MP4File& file, uint32_t index = 0);
+    void Dump(uint8_t indent,
+              bool dumpImplicits, uint32_t index = 0);
+
+protected:
+    MP4Float64Array m_values;
+
+private:
+    MP4Float64Property();
+    MP4Float64Property ( const MP4Float64Property &src );
+    MP4Float64Property &operator= ( const MP4Float64Property &src );
 };
 
 class MP4StringProperty : public MP4Property {
