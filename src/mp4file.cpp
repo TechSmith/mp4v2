@@ -2562,7 +2562,7 @@ MP4ChapterType MP4File::GetChapters(MP4Chapter_t ** chapterList, uint32_t * chap
             if (0 < counter)
             {
                 uint32_t timescale = pChapterTrack->GetTimeScale();
-                MP4Chapter_t * chapters = (MP4Chapter_t*)MP4Malloc(sizeof(MP4Chapter_t) * counter);
+                UniqueArray<MP4Chapter_t> chapters(counter);
 
                 // process all chapter sample
                 for (uint32_t i = 0; i < counter; ++i)
@@ -2588,7 +2588,7 @@ MP4ChapterType MP4File::GetChapters(MP4Chapter_t ** chapterList, uint32_t * chap
                     sample = 0;
                 }
 
-                *chapterList = chapters;
+                *chapterList = chapters.release();
                 *chapterCount = counter;
 
                 // we got chapters so we are done
@@ -2647,7 +2647,7 @@ MP4ChapterType MP4File::GetChapters(MP4Chapter_t ** chapterList, uint32_t * chap
             return MP4ChapterTypeNone;
         }
 
-        MP4Chapter_t * chapters = (MP4Chapter_t*)MP4Malloc(sizeof(MP4Chapter_t) * counter);
+        UniqueArray<MP4Chapter_t> chapters(counter);
 
         // get the name of the first chapter
         name = pName->GetValue();
@@ -2685,7 +2685,7 @@ MP4ChapterType MP4File::GetChapters(MP4Chapter_t ** chapterList, uint32_t * chap
             chapters[i].duration = duration;
         }
 
-        *chapterList = chapters;
+        *chapterList = chapters.release();
         *chapterCount = counter;
 
         return MP4ChapterTypeNero;

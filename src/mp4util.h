@@ -84,6 +84,23 @@ inline void* MP4Realloc(void* p, uint32_t newSize) {
     return temp;
 }
 
+// C++98 unique_ptr-like that allocates on construction.
+template <typename T>
+class UniqueArray {
+    T *m_ptr;
+    UniqueArray(const UniqueArray&);
+    UniqueArray&operator=(const UniqueArray&);
+public:
+    explicit UniqueArray(size_t count) : m_ptr((T*)MP4Malloc(sizeof(T) * count)) {}
+    ~UniqueArray() { CHECK_AND_FREE(m_ptr); }
+    T & operator[](size_t idx) { return m_ptr[idx]; }
+    T* release() {
+        T * ptr = m_ptr;
+        m_ptr = NULL;
+        return ptr;
+    }
+};
+
 uint32_t STRTOINT32( const char* );
 void     INT32TOSTR( uint32_t, char* );
 
