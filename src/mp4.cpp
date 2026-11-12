@@ -2567,14 +2567,18 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
     {
         uint32_t ix;
 
-        for (ix = 0; pSeqHeaderSize[ix] != 0; ++ix) {
-            free(pSeqHeaders[ix]);
+        if (pSeqHeaderSize) {
+            for (ix = 0; pSeqHeaderSize[ix] != 0; ++ix) {
+                free(pSeqHeaders[ix]);
+            }
         }
         free(pSeqHeaders);
         free(pSeqHeaderSize);
 
-        for (ix = 0; pPictHeaderSize[ix] != 0; ++ix) {
-            free(pPictHeader[ix]);
+        if (pPictHeaderSize) {
+            for (ix = 0; pPictHeaderSize[ix] != 0; ++ix) {
+                free(pPictHeader[ix]);
+            }
         }
         free(pPictHeader);
         free(pPictHeaderSize);

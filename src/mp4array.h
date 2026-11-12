@@ -77,9 +77,8 @@ protected:
                   throw new PlatformException("illegal array index", ERANGE, __FILE__, __LINE__, __FUNCTION__); \
             } \
             if (m_numElements == m_maxNumElements) { \
-                m_maxNumElements = max(m_maxNumElements, (MP4ArrayIndex)1) * 2; \
-                m_elements = (type*)MP4Realloc(m_elements, \
-                    m_maxNumElements * sizeof(type)); \
+                MP4ArrayIndex newCapacity = max(m_maxNumElements, (MP4ArrayIndex)1) * 2; \
+                Reserve(newCapacity); \
             } \
             memmove(&m_elements[newIndex + 1], &m_elements[newIndex], \
                 (m_numElements - newIndex) * sizeof(type)); \
@@ -99,13 +98,19 @@ protected:
                   (m_numElements - index) * sizeof(type)); \
             } \
         } \
+        \
+        void Reserve(MP4ArrayIndex newSize) { \
+            if (newSize > m_maxNumElements) { \
+                if ( (uint64_t) newSize * sizeof(type) > 0xFFFFFFFF ) \
+                    throw new PlatformException("requested array size exceeds 4GB", ERANGE, __FILE__, __LINE__, __FUNCTION__); /* prevent overflow */ \
+                m_elements = (type*)MP4Realloc(m_elements, newSize * sizeof(type)); \
+                m_maxNumElements = newSize; \
+            } \
+        } \
+        \
         void Resize(MP4ArrayIndex newSize) { \
+            Reserve(newSize); \
             m_numElements = newSize; \
-            m_maxNumElements = newSize; \
-            if ( (uint64_t) m_maxNumElements * sizeof(type) > 0xFFFFFFFF ) \
-               throw new PlatformException("requested array size exceeds 4GB", ERANGE, __FILE__, __LINE__, __FUNCTION__); /* prevent overflow */ \
-            m_elements = (type*)MP4Realloc(m_elements, \
-                m_maxNumElements * sizeof(type)); \
         } \
         \
         type& operator[](MP4ArrayIndex index) { \
