@@ -35,6 +35,10 @@ MP4SdpAtom::MP4SdpAtom(MP4File &file) : MP4Atom(file, "sdp ")
 void MP4SdpAtom::Read()
 {
     // read sdp string, length is implicit in size of atom
+    if (m_File.GetPosition() >= GetEnd()) {
+        log.warningf("%s: \"%s\": invalid atom size", __FUNCTION__, GetType());
+        return;
+    }
     uint64_t size = GetEnd() - m_File.GetPosition();
     char* data = (char*)MP4Malloc(size + 1);
     ASSERT(data != NULL);
