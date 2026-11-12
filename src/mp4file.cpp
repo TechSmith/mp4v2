@@ -469,7 +469,8 @@ void MP4File::GenerateTracks()
 
             MP4Track* pTrack = NULL;
             try {
-                if (!strcmp(pTypeProperty->GetValue(), MP4_HINT_TRACK_TYPE)) {
+                const char* handlerType = pTypeProperty->GetValue();
+                if (handlerType && !strcmp(handlerType, MP4_HINT_TRACK_TYPE)) {
                     pTrack = new MP4RtpHintTrack(*this, *pTrakAtom);
                 } else {
                     pTrack = new MP4Track(*this, *pTrakAtom);
