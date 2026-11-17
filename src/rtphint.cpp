@@ -320,7 +320,7 @@ void MP4RtpHintTrack::GetPayload(
             *ppPayloadName = NULL;
         if (ppEncodingParams)
             *ppEncodingParams = NULL;
-        if (m_pRtpMapProperty) {
+        if (m_pRtpMapProperty && m_pRtpMapProperty->GetValue() != NULL) {
             pRtpMap = m_pRtpMapProperty->GetValue();
             pSlash = strchr(pRtpMap, '/');
 
