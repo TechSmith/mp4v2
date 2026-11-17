@@ -505,7 +505,7 @@ void MP4ContentIdDescriptor::Read(MP4File& file)
     ReadProperties(file, 0, 1);
 
     /* if compatiblity != 0 */
-    if (((MP4Integer8Property*)m_pProperties[0])->GetValue() != 0) {
+    if (((MP4BitfieldProperty*)m_pProperties[0])->GetValue() != 0) {
         /* we don't understand it */
         log.verbose1f("incompatible content id descriptor");
         return;
