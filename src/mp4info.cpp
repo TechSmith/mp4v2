@@ -577,7 +577,7 @@ char* MP4Info(
         try {
             if (trackId == MP4_INVALID_TRACK_ID) {
                 uint32_t buflen = 4 * 1024;
-                info = (char*)MP4Calloc(buflen);
+                info = (char*)MP4Calloc(buflen + 1);
 
                 buflen -= snprintf(info, buflen,
                                    "Track\tType\tInfo\n");
